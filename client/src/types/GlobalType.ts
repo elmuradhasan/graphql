@@ -3,3 +3,15 @@ export type User = {
   name: string;
   email: string;
 };
+export interface AddUserVariables {
+  name: string;
+  email: string;
+}
+
+export interface AddUserResponse {
+  addUser: {
+    id: string;
+    name: string;
+    email: string;
+  };
+}

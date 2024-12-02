@@ -11,7 +11,7 @@ const GET_USERS = gql`
   }
 `;
 
-function UserList() {
+const UserList: React.FC = () => {
   const { loading, error, data } = useQuery(GET_USERS);
 
   if (loading) return <p>Loading...</p>;
@@ -26,5 +26,5 @@ function UserList() {
       ))}
     </ul>
   );
-}
+};
 export default UserList;

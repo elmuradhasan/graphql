@@ -1,13 +1,11 @@
-const { ApolloServer, gql } = require('apollo-server');
+const { ApolloServer, gql } = require("apollo-server");
 
-// Mock Data
-const users = [
-  { id: 1, name: 'Alice', email: 'alice@example.com' },
-  { id: 2, name: 'Bob', email: 'bob@example.com' },
-  { id: 3, name: 'Charlie', email: 'charlie@example.com' },
+let users = [
+  { id: 1, name: "Elmurad", email: "hsnlimurad36@gmail.com" },
+  { id: 2, name: "Samil", email: "Samil@gmail.com" },
+  { id: 3, name: "Sabir", email: "jkdjjj@gmail.com" },
+  { id: 4, name: "Qasim", email: "hsnlimurad36@gmail.com" },
 ];
-
-// Schema Definition (typeDefs)
 const typeDefs = gql`
   type User {
     id: ID
@@ -18,12 +16,27 @@ const typeDefs = gql`
   type Query {
     users: [User]
   }
+
+  type Mutation {
+    addUser(name: String!, email: String!): User
+  }
 `;
 
 // Resolver Functions
 const resolvers = {
   Query: {
-    users: () => users, // Return the mock users array
+    users: () => users,
+  },
+  Mutation: {
+    addUser: (_, { name, email }) => {
+      const newUser = {
+        id: users.length + 1, // Auto-generate an ID
+        name,
+        email,
+      };
+      users.push(newUser); // Add the new user to the mock array
+      return newUser;
+    },
   },
 };
 
