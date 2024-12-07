@@ -1,7 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import { AddUserResponse, AddUserVariables } from "../types/GlobalType";
-
+import {Input} from "antd"
 // Define the GraphQL mutation
 const ADD_USER = gql`
   mutation AddUser($name: String!, $email: String!) {
@@ -16,38 +16,33 @@ const ADD_USER = gql`
 // Define the TypeScript types for mutation variables and response
 
 const AddUser: React.FC = () => {
-  // Use refs for the input fields
-  const inputName = useRef<HTMLInputElement>(null);
-  const inputEmail = useRef<HTMLInputElement>(null);
-
-  // Use mutation hook with TypeScript generics
-  const [addUser, { data, loading, error }] = useMutation<
-    AddUserResponse,
-    AddUserVariables
-  >(ADD_USER);
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (inputName.current && inputEmail.current) {
-      addUser({
-        variables: {
-          name: inputName.current.value,
-          email: inputEmail.current.value,
-        },
-      });
-
-      // Clear input fields
-      inputName.current.value = "";
-      inputEmail.current.value = "";
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+  
+    // Use mutation hook with TypeScript generics
+    const [addUser, { data, loading, error }] = useMutation<
+      AddUserResponse,
+      AddUserVariables
+    >(ADD_USER);
+  
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+  
+      if (name && email) {
+        addUser({
+          variables: {
+            name,
+            email,
+          },
+        });
     }
   };
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <input ref={inputName} placeholder="Name" />
-        <input ref={inputEmail} placeholder="Email" />
+        <Input onChange={(e)=>setName(e.target.value)} placeholder="Name" />
+        <Input onChange={(e)=>setEmail(e.target.value)} placeholder="Email" />
         <button type="submit" disabled={loading}>
           {loading ? "Adding..." : "Add User"}
         </button>
