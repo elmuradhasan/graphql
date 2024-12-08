@@ -1,0 +1,12 @@
+{
+    "type": "mongodb",
+    "url": "mongodb+srv://<username>:<password>@cluster0.mongodb.net/mydatabase",
+    "useNewUrlParser": true,
+    "useUnifiedTopology": true,
+    "entities": [
+      "/entity/*.js"
+    ],
+    "synchronize": true,
+    "logging": true
+  }
+  

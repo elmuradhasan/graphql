@@ -1,17 +1,29 @@
 export type User = {
   id: number;
-  name: string;
+  password: string;
   email: string;
 };
 export interface AddUserVariables {
-  name: string;
+  password: string;
   email: string;
 }
 
 export interface AddUserResponse {
   addUser: {
     id: string;
-    name: string;
+    username: string;
     email: string;
+    password: string;
+  };
+}
+
+export interface AuthResponse {
+  login: {
+    token: string;
+    user: User;
+  };
+  signup: {
+    token: string;
+    user: User;
   };
 }

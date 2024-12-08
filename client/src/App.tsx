@@ -1,6 +1,6 @@
 import React from "react";
-import UserList from "./components/UserList";
-import AddUser from "./components/AddUser";
+// import UserList from "./components/UserList";
+import Login from "./components/Login";
 import { Row } from "antd";
 
 function App() {
@@ -8,8 +8,7 @@ function App() {
     <>
       <Row style={{ flexDirection: "column", alignItems: "center" }}>
         <h2>İstifadəçi Formu</h2>
-        <AddUser />
-        <UserList />
+        <Login />
       </Row>
     </>
   );

@@ -1,44 +1,29 @@
-const { ApolloServer, gql } = require("apollo-server");
+var ApolloServer = require("apollo-server").ApolloServer;
+var typeDefs = require("./type/index");
+var resolvers = require("./resolver/index");
+var connectToDatabase = require("./models/index").connectToDatabase;
 
-let users = [];
-const typeDefs = gql`
-  type User {
-    id: ID
-    name: String
-    email: String
-  }
+connectToDatabase().then(function () {
+  var server = new ApolloServer({
+    typeDefs: typeDefs,
+    resolvers: resolvers,
+    context: function ({ req }) {
+      var token = req.headers.authorization || "";
+      var user = null;
 
-  type Query {
-    users: [User]
-  }
+      if (token) {
+        try {
+          user = jwt.verify(token.replace("Bearer ", ""), "your_secret_key");
+        } catch (err) {
+          console.error("Invalid token", err);
+        }
+      }
 
-  type Mutation {
-    addUser(name: String!, email: String!): User
-  }
-`;
-
-// Resolver Functions
-const resolvers = {
-  Query: {
-    users: () => users,
-  },
-  Mutation: {
-    addUser: (_, { name, email }) => {
-      const newUser = {
-        id: users.length + 1, // Auto-generate an ID
-        name,
-        email,
-      };
-      users.push(newUser); // Add the new user to the mock array
-      return newUser;
+      return { user: user };
     },
-  },
-};
+  });
 
-// Apollo Server Setup
-const server = new ApolloServer({ typeDefs, resolvers });
-
-// Start the Server
-server.listen().then(({ url }) => {
-  console.log(`GraphQL server running at ${url}`);
+  server.listen().then(function ({ url }) {
+    console.log("GraphQL server is running at " + url);
+  });
 });
