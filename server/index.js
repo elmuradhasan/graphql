@@ -1,11 +1,6 @@
 const { ApolloServer, gql } = require("apollo-server");
 
-let users = [
-  { id: 1, name: "Elmurad", email: "hsnlimurad36@gmail.com" },
-  { id: 2, name: "Samil", email: "Samil@gmail.com" },
-  { id: 3, name: "Sabir", email: "jkdjjj@gmail.com" },
-  { id: 4, name: "Qasim", email: "hsnlimurad36@gmail.com" },
-];
+let users = [];
 const typeDefs = gql`
   type User {
     id: ID

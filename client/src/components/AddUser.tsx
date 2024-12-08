@@ -1,42 +1,53 @@
 import { gql, useMutation } from "@apollo/client";
 import React from "react";
-import { AddUserResponse, AddUserVariables } from "../types/GlobalType";
+import { AddUserResponse, AddUserVariables, User } from "../types/GlobalType";
 import { Button, Form, Input, Row } from "antd";
 import { yupResolver } from "@hookform/resolvers/yup";
-
 import { Controller, useForm } from "react-hook-form";
 import schema from "../schema";
-
-const ADD_USER = gql`
-  mutation AddUser($name: String!, $email: String!) {
-    addUser(name: $name, email: $email) {
-      id
-      name
-      email
-    }
-  }
-`;
+import { ADD_USER, GET_USERS } from "../graphql/queries";
 
 const AddUser: React.FC = () => {
-  const [addUser, { data, loading, error }] = useMutation<
+  // Mutation hook with Apollo Client
+  const [addUser, { loading, error }] = useMutation<
     AddUserResponse,
     AddUserVariables
-  >(ADD_USER);
+  >(ADD_USER, {
+    update(cache, { data }) {
+      if (!data) return;
+
+      // Update the cache for the users query
+      const existingUsers = cache.readQuery<{ users: User[] }>({
+        query: GET_USERS,
+      });
+
+      if (existingUsers) {
+        // Append the new user to the existing users list
+        cache.writeQuery({
+          query: GET_USERS,
+          data: {
+            users: [...existingUsers.users, data.addUser],
+          },
+        });
+      }
+    },
+  });
 
   const {
     handleSubmit,
     control,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
 
   const onSubmit = (data: AddUserVariables) => {
-    console.log(data, "Salam");
-
     addUser({
       variables: data,
     });
+    setValue("name", "");
+    setValue("email", "");
   };
 
   return (
@@ -51,13 +62,12 @@ const AddUser: React.FC = () => {
         onFinish={handleSubmit(onSubmit)}
         style={{ width: "500px", display: "flex", flexDirection: "column" }}
       >
-        {/* Name Field */}
         <Form.Item
           label="Ad"
           validateStatus={errors.name ? "error" : ""}
           help={errors.name ? errors.name.message : ""}
           labelCol={{ span: 24 }} // This ensures the label takes a full row
-          wrapperCol={{ span: 24 }} // This ensures the input takes a full row
+          wrapperCol={{ span: 24 }}
         >
           <Controller
             name="name"
@@ -68,13 +78,12 @@ const AddUser: React.FC = () => {
           />
         </Form.Item>
 
-        {/* Email Field */}
         <Form.Item
           label="Email"
           validateStatus={errors.email ? "error" : ""}
           help={errors.email ? errors.email.message : ""}
           labelCol={{ span: 24 }} // This ensures the label takes a full row
-          wrapperCol={{ span: 24 }} // This ensures the input takes a full row
+          wrapperCol={{ span: 24 }}
         >
           <Controller
             name="email"
@@ -85,7 +94,6 @@ const AddUser: React.FC = () => {
           />
         </Form.Item>
 
-        {/* Submit Button */}
         <Button
           type="primary"
           disabled={loading}
@@ -95,17 +103,7 @@ const AddUser: React.FC = () => {
         </Button>
       </Form>
 
-      {/* Error Message */}
       {error && <p>Error: {error.message}</p>}
-
-      {/* Display Added User Data */}
-      {data && (
-        <div>
-          <h3>User Added:</h3>
-          <p>Name: {data.addUser.name}</p>
-          <p>Email: {data.addUser.email}</p>
-        </div>
-      )}
     </Row>
   );
 };

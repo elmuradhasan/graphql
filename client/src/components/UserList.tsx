@@ -1,15 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
 import { User } from "../types/GlobalType";
-
-const GET_USERS = gql`
-  query GetUsers {
-    users {
-      id
-      name
-      email
-    }
-  }
-`;
+import { GET_USERS } from "../graphql/queries";
 
 const UserList: React.FC = () => {
   const { loading, error, data } = useQuery(GET_USERS);
@@ -27,4 +18,5 @@ const UserList: React.FC = () => {
     </ul>
   );
 };
+
 export default UserList;
