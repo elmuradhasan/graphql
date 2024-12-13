@@ -4,9 +4,9 @@ import { AddUserVariables } from "../types/GlobalType";
 import { Button, Form, Input, Row } from "antd";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
-import schema from "../schema";
 import { LOGIN_MUTATION } from "../graphql/queries";
 import { Link, useNavigate } from "react-router-dom";
+import loginSchema from "../schema/loginSchema";
 interface LoginProps {
   setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
 }
@@ -18,7 +18,7 @@ const Login: React.FC<LoginProps> = ({ setIsLoggedIn }) => {
     setValue,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(loginSchema),
   });
   const [login, { data, loading, error }] = useMutation(LOGIN_MUTATION);
   const onSubmit = async (datas: AddUserVariables) => {
@@ -48,7 +48,7 @@ const Login: React.FC<LoginProps> = ({ setIsLoggedIn }) => {
         height: "100vh",
       }}
     >
-      <h2>Websaytimiza xos gelmisiniz</h2>
+      <h2>Elmuradhasan saytına giriş</h2>
       <Form
         onFinish={handleSubmit(onSubmit)}
         style={{ width: "500px", display: "flex", flexDirection: "column" }}
@@ -84,9 +84,15 @@ const Login: React.FC<LoginProps> = ({ setIsLoggedIn }) => {
             )}
           />
         </Form.Item>
-        {/* <span>
-          Hesabin yoxdur? <Link to="/signup">Qeydiyyat</Link>
-        </span> */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginBottom: "10px",
+          }}
+        >
+          <span>Hesabin yoxdur?</span> <Link to="/signup">Qeydiyyat</Link>
+        </div>
         <Button
           type="primary"
           disabled={loading}

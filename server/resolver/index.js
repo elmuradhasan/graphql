@@ -12,22 +12,49 @@ module.exports = {
     },
   },
   Mutation: {
-    addUser: function (_, args) {
+    signup: async (_, { username, email, password }) => {
       const userRepository = db.getRepository("User");
 
-      return bcrypt.hash(args.password, 10).then((hashedPassword) => {
-        const newUser = userRepository.create({
-          username: args.username,
-          email: args.email,
-          password: hashedPassword,
-        });
+      // Check if the user already exists
+      const existingUser = await userRepository.findOneBy({ email });
+      if (existingUser) {
+        throw new Error("This user already exists");
+      }
 
-        return userRepository.save(newUser).then(() => {
-          return newUser; // Ensure the newUser object is returned
-        });
+      // Hash the password
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      // Create new user object
+      const newUser = userRepository.create({
+        username,
+        email,
+        password: hashedPassword,
       });
-    },
 
+      // Save the new user to the database
+      await userRepository.save(newUser);
+
+      // Generate a JWT token
+      const token = jwt.sign(
+        {
+          userId: newUser.id,
+          username: newUser.username,
+          email: newUser.email,
+        },
+        "your_secret_key", // Replace with a strong secret key
+        { expiresIn: "1h" }
+      );
+
+      // Return the token and user object in AuthPayload format
+      return {
+        token,
+        user: {
+          id: newUser.id,
+          username: newUser.username,
+          email: newUser.email,
+        },
+      };
+    },
     login: function (_, args) {
       const userRepository = db.getRepository("User");
 

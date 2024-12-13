@@ -5,6 +5,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import ProtectedRoute from "./router/ProtectedRoute";
 import "./style/style.css";
 import Home from "./components/Home";
+import SignUp from "./components/SignUp";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -15,10 +16,6 @@ function App() {
   }, []);
   return (
     <>
-      {/* <Row style={{ flexDirection: "column", alignItems: "center" }}>
-        <h2>İstifadəçi Formu</h2>
-        <Login />
-      </Row> */}
 
       <Router>
         <Routes>
@@ -27,6 +24,7 @@ function App() {
             path="/login"
             element={<Login setIsLoggedIn={setIsLoggedIn} />}
           />
+          <Route path="/signup" element={<SignUp />} />
 
           {/* Protected Route */}
           <Route
