@@ -7,11 +7,15 @@ import { Controller, useForm } from "react-hook-form";
 import { LOGIN_MUTATION } from "../graphql/queries";
 import { Link, useNavigate } from "react-router-dom";
 import loginSchema from "../schema/loginSchema";
-interface LoginProps {
-  setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
-}
-const Login: React.FC<LoginProps> = ({ setIsLoggedIn }) => {
+import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { logins } from "../../src/slices/authSlice";
+
+const Login: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const notify = () => toast.success("Uğurla daxil olundu!");
   const {
     handleSubmit,
     control,
@@ -25,12 +29,11 @@ const Login: React.FC<LoginProps> = ({ setIsLoggedIn }) => {
     try {
       const response = await login({ variables: datas });
       localStorage.setItem("token", response.data?.login.token || "");
-      setIsLoggedIn(true);
-      alert("login oldunuz ana sehifeye kecin");
-
+      dispatch(logins());
+      notify();
       setTimeout(() => {
         navigate("/");
-      }, 1000);
+      }, 3000);
     } catch (err) {
       console.error(err, "Salam");
     }
@@ -41,68 +44,85 @@ const Login: React.FC<LoginProps> = ({ setIsLoggedIn }) => {
   return (
     <Row
       style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "column",
         height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+        backgroundImage: `url("https://wallpaperaccess.com/full/3239480.jpg")`,
+        backgroundPosition: "center",
+        backgroundSize: "cover",
       }}
     >
-      <h2>Elmuradhasan saytına giriş</h2>
-      <Form
-        onFinish={handleSubmit(onSubmit)}
-        style={{ width: "500px", display: "flex", flexDirection: "column" }}
-      >
-        <Form.Item
-          label="Email"
-          validateStatus={errors.email ? "error" : ""}
-          help={errors.email ? errors.email?.message : ""}
-          labelCol={{ span: 24 }} // This ensures the label takes a full row
-          wrapperCol={{ span: 24 }}
+      <div className="mainRow">
+        <h2>Elmuradhasan saytına giriş</h2>
+        <Form
+          onFinish={handleSubmit(onSubmit)}
+          style={{ width: "500px", display: "flex", flexDirection: "column" }}
         >
-          <Controller
-            name="email"
-            control={control}
-            render={({ field }) => (
-              <Input {...field} placeholder="İstifadəçi emailini daxil edin" />
-            )}
-          />
-        </Form.Item>
+          <Form.Item
+            label="Email"
+            validateStatus={errors.email ? "error" : ""}
+            help={errors.email ? errors.email?.message : ""}
+            labelCol={{ span: 24 }} // This ensures the label takes a full row
+            wrapperCol={{ span: 24 }}
+          >
+            <Controller
+              name="email"
+              control={control}
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  placeholder="İstifadəçi emailini daxil edin"
+                  size="large"
+                />
+              )}
+            />
+          </Form.Item>
 
-        <Form.Item
-          label="Parol"
-          validateStatus={errors.password ? "error" : ""}
-          help={errors.password ? errors.password.message : ""}
-          labelCol={{ span: 24 }} // This ensures the label takes a full row
-          wrapperCol={{ span: 24 }}
-        >
-          <Controller
-            name="password"
-            control={control}
-            render={({ field }) => (
-              <Input {...field} placeholder="İstifadəçi parolunu daxil edin" />
-            )}
-          />
-        </Form.Item>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginBottom: "10px",
-          }}
-        >
-          <span>Hesabin yoxdur?</span> <Link to="/signup">Qeydiyyat</Link>
-        </div>
-        <Button
-          type="primary"
-          disabled={loading}
-          onClick={handleSubmit(onSubmit)}
-        >
-          {loading ? "Daxil olunur..." : "Daxil ol"}
-        </Button>
-      </Form>
-
-      {/* {error && <p>Error: {error.message}</p>} */}
+          <Form.Item
+            label="Parol"
+            validateStatus={errors.password ? "error" : ""}
+            help={errors.password ? errors.password.message : ""}
+            labelCol={{ span: 24 }} // This ensures the label takes a full row
+            wrapperCol={{ span: 24 }}
+          >
+            <Controller
+              name="password"
+              control={control}
+              render={({ field }) => (
+                <Input.Password
+                  iconRender={(visible) =>
+                    visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                  }
+                  {...field}
+                  placeholder="İstifadəçi parolunu daxil edin"
+                  type="password"
+                  size="large"
+                />
+              )}
+            />
+          </Form.Item>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              marginBottom: "10px",
+            }}
+          >
+            <span>Hesabin yoxdur?</span> <Link to="/signup">Qeydiyyat</Link>
+          </div>
+          <Button
+            type="primary"
+            size="large"
+            disabled={loading}
+            onClick={handleSubmit(onSubmit)}
+          >
+            {loading ? "Daxil olunur..." : "Daxil ol"}
+          </Button>
+        </Form>
+      </div>
+      ;{/* {error && <p>Error: {error.message}</p>} */}
     </Row>
   );
 };

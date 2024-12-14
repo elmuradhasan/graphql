@@ -2,10 +2,14 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Alkatra", system-ui;
+    font-optical-sizing: auto;
+    font-style: normal;
 }
 
 body{
     width: 100%;
+ 
     height: 100vh;
 }
 #root{
@@ -13,4 +17,18 @@ body{
 }
 .ant-layout{
     height: 100vh;
+}
+.mainRow{
+    display: flex;
+    width: 700px;
+    flex-direction: column;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: center;
+    height: 550px;
+    background-color: #fff;
+}
+.mainRow h2{
+ margin-bottom: 10px;
+ color: rgb(29, 84, 123);
 }
