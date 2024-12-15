@@ -10,7 +10,7 @@ import loginSchema from "../schema/loginSchema";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { logins } from "../../src/slices/authSlice";
+import { logins } from "../slices/authSlice";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
