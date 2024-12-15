@@ -32,3 +32,6 @@ body{
  margin-bottom: 10px;
  color: rgb(29, 84, 123);
 }
+main{
+        background-color: #f8f9fa !important;
+}

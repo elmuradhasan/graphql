@@ -16,10 +16,10 @@ const { Sider } = Layout;
 const Home = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [collapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <Layout>
+    <Layout style={{ backgroundColor: "#cfe2ff" }}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="demo-logo-vertical" />
         <Menu
@@ -58,7 +58,7 @@ const Home = () => {
           ]}
         />
       </Sider>
-      <Layouts />
+      <Layouts collapsed={collapsed} setCollapsed={setCollapsed} />
     </Layout>
   );
 };

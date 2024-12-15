@@ -11,6 +11,7 @@ import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { logins } from "../slices/authSlice";
+import { saveInfo } from "../slices/userSlice";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -29,6 +30,11 @@ const Login: React.FC = () => {
     try {
       const response = await login({ variables: datas });
       localStorage.setItem("token", response.data?.login.token || "");
+      console.log(response);
+
+      dispatch(saveInfo(response.data?.login.user));
+      localStorage.setItem("user", JSON.stringify(response.data?.login.user));
+
       dispatch(logins());
       notify();
       setTimeout(() => {

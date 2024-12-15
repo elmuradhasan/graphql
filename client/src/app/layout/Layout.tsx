@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   LogoutOutlined,
   MenuFoldOutlined,
@@ -8,22 +8,39 @@ import {
 import { Button, Dropdown, Layout, MenuProps, theme } from "antd";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
-import { useDispatch } from "react-redux";
-import { logout } from "../../slices/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../slices/authSlice"; // Ensure saveInfo is imported
 import MainPage from "../main/MainPage";
 import Profile from "../profile/Profile";
 import Projects from "../project/Project";
+import { RootState } from "../../store/store";
+import { saveInfo } from "../../slices/userSlice";
 
 const { Header, Content } = Layout;
 
-const Layouts = () => {
+const Layouts: React.FC<{ collapsed: boolean; setCollapsed: any }> = ({
+  collapsed,
+  setCollapsed,
+}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [collapsed, setCollapsed] = useState(false);
+  const { email, username } = useSelector((state: RootState) => state.user);
+
+  // Load user data on mount
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const { username, email } = JSON.parse(storedUser);
+      dispatch(saveInfo({ username, email })); // Restore user info in Redux store
+    }
+  }, [dispatch]);
+
   const handleLogout = () => {
     dispatch(logout());
+    localStorage.removeItem("user"); // Clear user data from localStorage
     navigate("/login"); // Redirect to Login
   };
+
   const items: MenuProps["items"] = [
     {
       key: "",
@@ -44,6 +61,7 @@ const Layouts = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
   return (
     <Layout>
       <Header
@@ -75,6 +93,7 @@ const Layouts = () => {
           }}
         >
           <UserOutlined />
+          <span>{username}</span>
         </Dropdown.Button>
       </Header>
 

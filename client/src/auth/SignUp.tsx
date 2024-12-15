@@ -22,9 +22,10 @@ const SignUp: React.FC = () => {
     resolver: yupResolver(signUpSchema),
   });
   const [signup, { data, loading, error }] = useMutation(SIGNUP_MUTATION);
+    
   const onSubmit = async (datas: AddUserVariables) => {
     try {
-      const response = await signup({ variables: datas });
+      await signup({ variables: datas });
       notify();
       setTimeout(() => {
         navigate("/login");

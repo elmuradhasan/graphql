@@ -1,0 +1,54 @@
+.main-banner-content .title h1 {
+    margin-bottom: 0;
+    transform-origin: 0 0;
+    transform: rotate(-6deg);
+    font-size: 52px;
+    font-weight: 700;
+    z-index: 1000;
+    color: #fff;
+    font-family: "Playfair Display", serif;
+    margin-top: 20px !important;
+    margin-left:100px;
+}
+.main-banner-content .title {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    margin-top: 5px;
+    margin-bottom: -10px;
+    padding-top: 55px;
+    padding-bottom: 55px;
+    padding-right: 150px;
+}
+.main-banner-content p {
+    font-family: "Poppins", sans-serif;
+    display: block;
+}
+.main-banner-content span {
+    display: block;
+    color: #000000;
+    font-family: "Poppins", sans-serif;
+}
+
+.main-banner-content .title::before {
+    position: absolute;
+    left: -20px;
+    top: 0;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-image: url("../../../public/images/paper-shape.png");
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.main-banner-content .title h5 {
+    margin-bottom: 0;
+    transform-origin: 0 0;
+    transform: rotate(-6deg);
+    font-size: 22px;
+    font-family: "Playfair Display", serif;
+}
+.main-banner{
+  height: 100%;
+}
