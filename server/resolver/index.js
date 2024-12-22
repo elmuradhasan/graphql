@@ -1,10 +1,8 @@
 var bcrypt = require("bcryptjs");
 var jwt = require("jsonwebtoken");
 var db = require("../models/index").db;
-
-var SECRET = "your_secret_key"; // Replace with a secure secret
-
-module.exports = {
+require('dotenv').config();
+ module.exports = {
   Query: {
     users: function () {
       var userRepository = db.getRepository("User");
@@ -41,7 +39,7 @@ module.exports = {
           username: newUser.username,
           email: newUser.email,
         },
-        "your_secret_key", // Replace with a strong secret key
+        process.env.SECRET, 
         { expiresIn: "1h" }
       );
 
@@ -71,7 +69,7 @@ module.exports = {
               throw new Error("Invalid email or password");
             }
 
-            const token = jwt.sign({ userId: user.id }, SECRET, {
+            const token = jwt.sign({ userId: user.id },process.env.SECRET, {
               expiresIn: "1h",
             });
 

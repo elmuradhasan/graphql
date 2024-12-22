@@ -9,14 +9,11 @@
 
 body{
     width: 100%;
- 
-    height: 100vh;
-}
-#root{
-    height: 100vh;
+    height: 100%;
 }
 .ant-layout{
-    height: 100vh;
+    min-height: 100vh;
+    height: 100%;
 }
 .mainRow{
     display: flex;
@@ -33,5 +30,55 @@ body{
  color: rgb(29, 84, 123);
 }
 main{
+      min-height: 100%;
         background-color: #f8f9fa !important;
 }
+.carousel-container {
+    display: flex;
+    position: relative;
+    width: 45%;
+    height: 100%;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  
+  .carousel-item {
+    position: relative;
+    flex: 1; /* Equal width for all images initially */
+    transition: flex 0.5s ease-in-out, transform 0.5s ease-in-out;
+    overflow: hidden;
+  }
+  
+  .carousel-item:hover {
+    flex: 10; /* Expand hovered image */
+    transform: scale(1.05); /* Slight zoom-in effect */
+  }
+  
+  .carousel-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .carousel-item:not(:hover) .carousel-image {
+    transform: scale(0.95); /* Slight shrink for non-hovered images */
+  }
+  .carousel-item::before {
+    content: "Frontend Developer-in 1 günü"; /* Replace with dynamic text if needed */
+    position: absolute;
+    top: 90%;
+    left: 35%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 24px;
+    text-align: center;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+  
+  .carousel-item:hover::before {
+    opacity: 1; /* Fade in the text on hover */
+  }
+    

@@ -2,7 +2,7 @@ var ApolloServer = require("apollo-server").ApolloServer;
 var typeDefs = require("./type/index");
 var resolvers = require("./resolver/index");
 var connectToDatabase = require("./models/index").connectToDatabase;
-
+require('dotenv').config();
 connectToDatabase().then(function () {
   var server = new ApolloServer({
     typeDefs: typeDefs,
@@ -13,7 +13,7 @@ connectToDatabase().then(function () {
 
       if (token) {
         try {
-          user = jwt.verify(token.replace("Bearer ", ""), "your_secret_key");
+          user = jwt.verify(token.replace("Bearer ", ""), process.env.SECRET);
         } catch (err) {
           console.error("Invalid token", err);
         }

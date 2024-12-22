@@ -8,25 +8,34 @@ const MainPage = () => {
         <Col lg={12} md={24}>
           <div className="main-banner-content">
             <span>
-              Hello, my name is <b>Elmurad</b>
+              Salam, mənim adım  <b>Elmuraddır</b>
             </span>
 
             <div className="title">
-              <Title level={5}>I am a</Title>
-              <Title level={1}>Web Developer</Title>
+              <Title level={5}>Mən</Title>
+              <Title level={1}>Veb Developerəm</Title>
             </div>
 
-            <Paragraph>
-              Creating modern and responsive design for Web and Mobile.
-            </Paragraph>
+            <p className="myService">
+            React, və digər müasir veb texnologiyaları ilə işləyərək yaradıcı və istifadəçi dostu veb tətbiqləri hazırlayıram
+            </p>
           </div>
         </Col>
 
-        <img
-          src="/images/elmurad.jpg"
-          style={{ borderRadius: "50%", width: "300px" }}
-          alt=""
-        />
+   <div className="carousel-container">
+    <div className="carousel-item">
+      <img src="/images/4.gif" alt="Frontend" className="carousel-image" />
+    </div>
+    <div className="carousel-item">
+      <img src="/images/images.gif" alt="Frontend 2" className="carousel-image" />
+    </div>
+    <div className="carousel-item">
+      <img src="/images/2.gif" alt="Frontend 3" className="carousel-image" />
+    </div>
+    <div className="carousel-item">
+      <img src="/images/1.gif" alt="Frontend 4" className="carousel-image" />
+    </div>
+  </div>
       </Row>
     </>
   );
