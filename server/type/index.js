@@ -23,5 +23,35 @@ const typeDefs = gql`
     signup(username: String!, email: String!, password: String!): AuthPayload!
     addUser(username: String!, email: String!, password: String!): User
   }
+    scalar JSON
+
+  type Movie {
+    id: ID
+    plot: String
+    rating:String
+    genres: [String]
+    runtime: Int
+    cast: [String]
+    num_mflix_comments: Int
+    poster: String
+    title: String
+    fullplot: String
+    languages: [String]
+    released: String
+    directors: [String]
+    writers: [String]
+    awards: JSON
+    lastupdated: String
+    year: Int
+    imdb: JSON
+    countries: [String]
+    type: String
+    tomatoes: JSON
+  }
+
+  type Query {
+    movies: [Movie]
+    movie(id: ID!): Movie
+  }
 `;
 module.exports = typeDefs;

@@ -1,7 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
 import React, { Dispatch, SetStateAction } from "react";
 import { AddUserVariables } from "../types/GlobalType";
-import { Button, Form, Input, Row } from "antd";
+import { Button, Col, Form, Input, Row } from "antd";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import { LOGIN_MUTATION } from "../graphql/queries";
@@ -48,88 +48,105 @@ const Login: React.FC = () => {
   };
 
   return (
-    <Row
-      style={{
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100%",
-        backgroundImage: `url("https://wallpaperaccess.com/full/3239480.jpg")`,
-        backgroundPosition: "center",
-        backgroundSize: "cover",
-      }}
-    >
-      <div className="mainRow">
-        <h2>Elmuradhasan saytına giriş</h2>
-        <Form
-          onFinish={handleSubmit(onSubmit)}
-          style={{ width: "500px", display: "flex", flexDirection: "column" }}
-        >
-          <Form.Item
-            label="Email"
-            validateStatus={errors.email ? "error" : ""}
-            help={errors.email ? errors.email?.message : ""}
-            labelCol={{ span: 24 }} // This ensures the label takes a full row
-            wrapperCol={{ span: 24 }}
+    <div style={{ width: "100%", display: "flex", height: "100vh" }}>
+      <div
+        style={{
+          width: "50%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-evenly",
+          flexDirection: "column",
+          backgroundColor: "#f8f9fa",
+          color:"#1677ff"
+        }}
+      >
+        <h1 >
+          Elmuradhasan saytına giriş
+        </h1>
+        <img src="./images/login.svg" alt="" width={450} />
+        <p >Xəyallarına gedəcək yolda sənə dəstək olacaq</p>
+      </div>
+      <div
+        style={{
+          width: "50%",
+          height: "100vh",
+          display: "flex",
+          flexDirection:"column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div className="mainRow">
+          <h2>Xoş gəlmisən, Dost:)</h2>
+          <Form
+            onFinish={handleSubmit(onSubmit)}
+            style={{ width: "500px", display: "flex", flexDirection: "column" }}
           >
-            <Controller
-              name="email"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  placeholder="İstifadəçi emailini daxil edin"
-                  size="large"
-                />
-              )}
-            />
-          </Form.Item>
+            <Form.Item
+              label="Email"
+              validateStatus={errors.email ? "error" : ""}
+              help={errors.email ? errors.email?.message : ""}
+              labelCol={{ span: 24 }} // This ensures the label takes a full row
+              wrapperCol={{ span: 24 }}
+            >
+              <Controller
+                name="email"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    placeholder="İstifadəçi emailini daxil edin"
+                    size="large"
+                  />
+                )}
+              />
+            </Form.Item>
 
-          <Form.Item
-            label="Parol"
-            validateStatus={errors.password ? "error" : ""}
-            help={errors.password ? errors.password.message : ""}
-            labelCol={{ span: 24 }} // This ensures the label takes a full row
-            wrapperCol={{ span: 24 }}
-          >
-            <Controller
-              name="password"
-              control={control}
-              render={({ field }) => (
-                <Input.Password
-                  iconRender={(visible) =>
-                    visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                  }
-                  {...field}
-                  placeholder="İstifadəçi parolunu daxil edin"
-                  type="password"
-                  size="large"
-                />
-              )}
-            />
-          </Form.Item>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginBottom: "10px",
-            }}
-          >
-            <span>Hesabin yoxdur?</span> <Link to="/signup">Qeydiyyat</Link>
-          </div>
-          <Button
-            type="primary"
-            size="large"
-            disabled={loading}
-            onClick={handleSubmit(onSubmit)}
-          >
-            {loading ? "Daxil olunur..." : "Daxil ol"}
-          </Button>
-        </Form>
+            <Form.Item
+              label="Parol"
+              validateStatus={errors.password ? "error" : ""}
+              help={errors.password ? errors.password.message : ""}
+              labelCol={{ span: 24 }} // This ensures the label takes a full row
+              wrapperCol={{ span: 24 }}
+            >
+              <Controller
+                name="password"
+                control={control}
+                render={({ field }) => (
+                  <Input.Password
+                    iconRender={(visible) =>
+                      visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                    }
+                    {...field}
+                    placeholder="İstifadəçi parolunu daxil edin"
+                    type="password"
+                    size="large"
+                  />
+                )}
+              />
+            </Form.Item>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: "10px",
+              }}
+            >
+              <span>Hesabin yoxdur?</span> <Link to="/signup">Qeydiyyat</Link>
+            </div>
+            <Button
+              type="primary"
+              size="large"
+              disabled={loading}
+              onClick={handleSubmit(onSubmit)}
+            >
+              {loading ? "Daxil olunur..." : "Daxil ol"}
+            </Button>
+          </Form>
+        </div>
       </div>
       ;{/* {error && <p>Error: {error.message}</p>} */}
-    </Row>
+    </div>
   );
 };
 

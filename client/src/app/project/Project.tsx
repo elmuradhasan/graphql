@@ -1,9 +1,10 @@
 import { Card, Col, Row } from "antd";
 import React from "react";
 
+
 function Projects() {
   return (
-    <div>
+    <>
       <div style={{ marginTop: "50px" }}>
         <h2>Skills</h2>
         <Row gutter={[16, 16]}>
@@ -24,7 +25,8 @@ function Projects() {
           </Col>
         </Row>
       </div>
-    </div>
+
+    </>
   );
 }
 

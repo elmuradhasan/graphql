@@ -32,3 +32,13 @@ export const SIGNUP_MUTATION = gql`
     }
   }
 `;
+
+export const GET_MOVIES = gql`
+  query GetMovies {
+    movies {
+      title
+      poster
+      rating
+    }
+  }
+`;

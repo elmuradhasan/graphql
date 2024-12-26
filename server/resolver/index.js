@@ -1,12 +1,22 @@
 var bcrypt = require("bcryptjs");
+const { GraphQLJSON } = require("graphql-scalars");
 var jwt = require("jsonwebtoken");
 var db = require("../models/index").db;
 require('dotenv').config();
  module.exports = {
+  JSON: GraphQLJSON,
   Query: {
     users: function () {
       var userRepository = db.getRepository("User");
       return userRepository.find();
+    },
+    movies: async () => {
+      const movieRepository = db.getRepository("movies");
+      return await movieRepository.find();
+    },
+    movie: async (_, { id }) => {
+      const movieRepository = db.getRepository("movies");
+      return await movieRepository.findOneBy({ id });
     },
   },
   Mutation: {
@@ -80,5 +90,6 @@ require('dotenv').config();
           });
       });
     },
+
   },
 };

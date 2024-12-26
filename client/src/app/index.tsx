@@ -5,6 +5,7 @@ import {
   LaptopOutlined,
   UserOutlined,
   WechatWorkOutlined,
+  WifiOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -38,13 +39,18 @@ const Home = () => {
               icon: <UserOutlined />,
               label: "Elmurad Həsənov",
             },
+  
 
+            {
+              key: "/movies",
+              icon:<WifiOutlined />,
+              label: "Filmlər",
+            },
             {
               key: "/projects",
               icon: <LaptopOutlined />,
               label: "Lahiyələr",
             },
-
             {
               key: "/lessons",
               icon: <FolderOpenOutlined />,

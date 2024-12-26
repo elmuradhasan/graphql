@@ -15,6 +15,7 @@ import Profile from "../profile/Profile";
 import Projects from "../project/Project";
 import { RootState } from "../../store/store";
 import { saveInfo } from "../../slices/userSlice";
+import Movies from "../movies/Movies";
 
 const { Header, Content } = Layout;
 
@@ -110,6 +111,7 @@ const Layouts: React.FC<{ collapsed: boolean; setCollapsed: any }> = ({
           <Route path="/" element={<MainPage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/movies" element={<Movies />} />
         </Routes>
       </Content>
     </Layout>

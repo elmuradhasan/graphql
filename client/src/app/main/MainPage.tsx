@@ -22,8 +22,8 @@ const MainPage = () => {
           </div>
         </Col>
 
-   <div className="carousel-container">
-    <div className="carousel-item">
+  {/*   <div className="carousel-container">
+   <div className="carousel-item">
       <img src="/images/4.gif" alt="Frontend" className="carousel-image" />
     </div>
     <div className="carousel-item">
@@ -35,7 +35,9 @@ const MainPage = () => {
     <div className="carousel-item">
       <img src="/images/1.gif" alt="Frontend 4" className="carousel-image" />
     </div>
-  </div>
+  </div> */}
+  <img src="/images/web.svg" alt="" width={400} style={{objectFit:"initial"}}/>
+
       </Row>
     </>
   );

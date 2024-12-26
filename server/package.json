@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
+    "start": "nodemon start index.js",
     "dev": "nodemon index.js"
   },
   "keywords": [],
@@ -16,6 +16,7 @@
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.7",
     "graphql": "^16.9.0",
+    "graphql-scalars": "^1.24.0",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^5.9.2",
     "reflect-metadata": "^0.2.2",
