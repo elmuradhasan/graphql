@@ -1,4 +1,4 @@
-var ApolloServer = require("apollo-server").ApolloServer;
+const { ApolloServer } = require("apollo-server");
 var typeDefs = require("./type/index");
 var resolvers = require("./resolver/index");
 var connectToDatabase = require("./models/index").connectToDatabase;
