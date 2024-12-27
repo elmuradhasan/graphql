@@ -4,7 +4,8 @@
   "description": "Backend server",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+     "dev": "nodemon index.js"
   },
   "dependencies": {
     "apollo-server": "^3.13.0",
@@ -18,6 +19,6 @@
     "typeorm": "^0.3.20"
   },
   "engines": {
-    "node": "16.x"
+    "node": "18.x"
   }
 }
