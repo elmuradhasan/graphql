@@ -1,17 +1,18 @@
 import { gql, useMutation } from "@apollo/client";
-import React, { Dispatch, SetStateAction } from "react";
-import { AddUserVariables } from "../types/GlobalType";
-import { Button, Col, Form, Input, Row } from "antd";
+import React from "react";
+import { AddUserVariables } from "../../types/GlobalType";
+import { Button, Form, Input } from "antd";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
-import { LOGIN_MUTATION } from "../graphql/queries";
+import { LOGIN_MUTATION } from "../../graphql/queries";
 import { Link, useNavigate } from "react-router-dom";
-import loginSchema from "../schema/loginSchema";
+import loginSchema from "../../schema/loginSchema";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { logins } from "../slices/authSlice";
-import { saveInfo } from "../slices/userSlice";
+import { logins } from "../../slices/authSlice";
+import { saveInfo } from "../../slices/userSlice";
+import "./Login.css";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -48,46 +49,23 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div style={{ width: "100%", display: "flex", height: "100vh" }}>
-      <div
-        style={{
-          width: "50%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-evenly",
-          flexDirection: "column",
-          backgroundColor: "#f8f9fa",
-          color:"#1677ff"
-        }}
-      >
-        <h1 >
-          Elmuradhasan saytına giriş
-        </h1>
-        <img src="./images/login.svg" alt="" width={450} />
-        <p >Xəyallarına gedəcək yolda sənə dəstək olacaq</p>
+    <div className="login-container">
+      <div className="login-left">
+        <h1>Elmuradhasan saytına giriş</h1>
+        <img src="./images/login.svg" alt="" className="login-image" />
+        <p>Xəyallarına gedəcək yolda sənə dəstək olacaq</p>
       </div>
-      <div
-        style={{
-          width: "50%",
-          height: "100vh",
-          display: "flex",
-          flexDirection:"column",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <div className="login-right">
         <div className="mainRow">
           <h2>Xoş gəlmisən, Dost:)</h2>
           <Form
             onFinish={handleSubmit(onSubmit)}
-            style={{ width: "500px", display: "flex", flexDirection: "column" }}
+            className="login-form"
           >
             <Form.Item
               label="Email"
               validateStatus={errors.email ? "error" : ""}
               help={errors.email ? errors.email?.message : ""}
-              labelCol={{ span: 24 }} // This ensures the label takes a full row
-              wrapperCol={{ span: 24 }}
             >
               <Controller
                 name="email"
@@ -106,8 +84,6 @@ const Login: React.FC = () => {
               label="Parol"
               validateStatus={errors.password ? "error" : ""}
               help={errors.password ? errors.password.message : ""}
-              labelCol={{ span: 24 }} // This ensures the label takes a full row
-              wrapperCol={{ span: 24 }}
             >
               <Controller
                 name="password"
@@ -125,13 +101,7 @@ const Login: React.FC = () => {
                 )}
               />
             </Form.Item>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginBottom: "10px",
-              }}
-            >
+            <div className="login-extra">
               <span>Hesabin yoxdur?</span> <Link to="/signup">Qeydiyyat</Link>
             </div>
             <Button
@@ -145,7 +115,6 @@ const Login: React.FC = () => {
           </Form>
         </div>
       </div>
-      ;{/* {error && <p>Error: {error.message}</p>} */}
     </div>
   );
 };

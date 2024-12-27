@@ -1,12 +1,12 @@
 import { gql, useMutation } from "@apollo/client";
-import { AddUserVariables } from "../types/GlobalType";
+import { AddUserVariables } from "../../types/GlobalType";
 import { Button, Form, Input, Row } from "antd";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
-import { SIGNUP_MUTATION } from "../graphql/queries";
+import { SIGNUP_MUTATION } from "../../graphql/queries";
 import { Link, useNavigate } from "react-router-dom";
-import signUpSchema from "../schema/signUpSchema";
-import "../style/style.css";
+import signUpSchema from "../../schema/signUpSchema";
+import "../../style/style.css";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { toast } from "react-toastify";
 const SignUp: React.FC = () => {

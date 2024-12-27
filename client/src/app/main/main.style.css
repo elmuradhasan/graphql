@@ -19,14 +19,11 @@
     padding-bottom: 55px;
     padding-right: 150px;
 }
-.main-banner-content p {
-    font-family: "Poppins", sans-serif;
-    display: block;
-}
+
 .main-banner-content span {
     display: block;
-    color: #000000;
-    font-family: "Poppins", sans-serif;
+    margin-bottom: 30px;
+    color: #1677ff;
 }
 
 .main-banner-content .title::before {
@@ -52,7 +49,8 @@
     color: #fff;
 }
 .main-banner{
-  height: 70vh;
+  height: 75vh;
+  justify-content: space-around;
 }
 .main-banner-content span{
     font-size: 20px;

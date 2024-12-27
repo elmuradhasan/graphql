@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 // import UserList from "./components/UserList";
-import Login from "./auth/Login";
+import Login from "./auth/login/Login";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import ProtectedRoute from "./router/ProtectedRoute";
 import "./style/style.css";
 import Home from "../src/app/index";
-import SignUp from "./auth/SignUp";
+import SignUp from "./auth/sign/SignUp";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 function App() {

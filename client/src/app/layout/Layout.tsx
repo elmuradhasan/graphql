@@ -15,7 +15,8 @@ import Profile from "../profile/Profile";
 import Projects from "../project/Project";
 import { RootState } from "../../store/store";
 import { saveInfo } from "../../slices/userSlice";
-import Movies from "../movies/Movies";
+import Contact from "../contact/Contact";
+import Lessons from "../lessons/Lessons";
 
 const { Header, Content } = Layout;
 
@@ -64,57 +65,65 @@ const Layouts: React.FC<{ collapsed: boolean; setCollapsed: any }> = ({
   } = theme.useToken();
 
   return (
-    <Layout>
-      <Header
-        style={{
-          padding: 0,
-          background: colorBgContainer,
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <Button
-          type="text"
-          icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-          onClick={() => setCollapsed(!collapsed)}
-          style={{
-            fontSize: "16px",
-            width: 64,
-            height: 64,
-          }}
-        />
+<Layout>
+  <Header
+    style={{
+      position: "fixed",
+      top: 0,
+      left: collapsed ? "80px" : "200px", // Adjust for Sider
+      width: collapsed ? "calc(100% - 80px)" : "calc(100% - 200px)", // Dynamic width
+      zIndex: 1000,
+      padding: 0,
+      background: colorBgContainer,
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+    }}
+  >
+    <Button
+      type="text"
+      icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+      onClick={() => setCollapsed(!collapsed)}
+      style={{
+        fontSize: "16px",
+        width: 64,
+        height: 64,
+      }}
+    />
 
-        <Dropdown.Button
-          menu={menuProps}
-          style={{
-            cursor: "pointer",
-            width: "min-content",
-            marginRight: "16px",
-          }}
-        >
-          <UserOutlined />
-          <span>{username}</span>
-        </Dropdown.Button>
-      </Header>
+    <Dropdown.Button
+      menu={menuProps}
+      style={{
+        cursor: "pointer",
+        width: "min-content",
+        marginRight: "16px",
+      }}
+    >
+      <UserOutlined />
+      <span>{username}</span>
+    </Dropdown.Button>
+  </Header>
 
-      <Content
-        style={{
-          margin: "24px 16px",
-          padding: 24,
-          minHeight: 280,
-          background: colorBgContainer,
-          borderRadius: borderRadiusLG,
-        }}
-      >
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/movies" element={<Movies />} />
-        </Routes>
-      </Content>
-    </Layout>
+  <Content
+    style={{
+      margin: "80px 16px 24px",
+      padding: 24,
+      minHeight: 280,
+      background: colorBgContainer,
+      borderRadius: borderRadiusLG,
+    }}
+  >
+    <Routes>
+      <Route path="/" element={<MainPage />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/projects" element={<Projects />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/lessons" element={<Lessons />} />
+    </Routes>
+  </Content>
+</Layout>
+
   );
 };
 

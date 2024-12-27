@@ -5,7 +5,6 @@ import {
   LaptopOutlined,
   UserOutlined,
   WechatWorkOutlined,
-  WifiOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -21,7 +20,19 @@ const Home = () => {
 
   return (
     <Layout style={{ backgroundColor: "#cfe2ff" }}>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
+      <Sider
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
+        style={{
+          position: "fixed",  // Make it fixed on the left side
+          top: 0,
+          left: 0,
+          bottom: 0,
+          height: "100vh",  // Full height of the viewport
+          zIndex: 100,  // Make sure it stays on top
+        }}
+      >
         <div className="demo-logo-vertical" />
         <Menu
           theme="dark"
@@ -38,13 +49,6 @@ const Home = () => {
               key: "/profile",
               icon: <UserOutlined />,
               label: "Elmurad Həsənov",
-            },
-  
-
-            {
-              key: "/movies",
-              icon:<WifiOutlined />,
-              label: "Filmlər",
             },
             {
               key: "/projects",
@@ -64,7 +68,14 @@ const Home = () => {
           ]}
         />
       </Sider>
-      <Layouts collapsed={collapsed} setCollapsed={setCollapsed} />
+      <Layout
+        style={{
+          marginLeft: collapsed ? 80 : 200, // Adjust based on whether the sidebar is collapsed or not
+          transition: "margin-left 0.3s",  // Smooth transition for margin change
+        }}
+      >
+        <Layouts collapsed={collapsed} setCollapsed={setCollapsed} />
+      </Layout>
     </Layout>
   );
 };
