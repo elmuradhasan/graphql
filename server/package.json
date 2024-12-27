@@ -1,12 +1,16 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "Backend server",
+  "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-     "dev": "nodemon index.js"
+    "dev": "nodemon index.js"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "apollo-server": "^3.13.0",
     "bcryptjs": "^2.4.3",
@@ -18,7 +22,10 @@
     "reflect-metadata": "^0.2.2",
     "typeorm": "^0.3.20"
   },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  },
   "engines": {
-    "node": "18.x"
+    "node": "latest"
   }
 }
