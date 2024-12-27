@@ -1,15 +1,15 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Backend server for the project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon start index.js",
-    "dev": "nodemon index.js"
+    "start": "node index.js", 
+    "dev": "nodemon index.js",
+    "build": "echo 'No build step required for the backend'" 
   },
   "keywords": [],
-  "author": "",
+  "author": "Your Name",
   "license": "ISC",
   "dependencies": {
     "apollo-server": "^3.13.0",
