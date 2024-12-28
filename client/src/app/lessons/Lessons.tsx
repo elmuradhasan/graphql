@@ -1,5 +1,14 @@
-import { Progress, Card, Col, Row } from 'antd';
-import { SiHtml5, SiCss3, SiJavascript, SiReact, SiRedux, SiTailwindcss, SiNextdotjs, SiTypescript } from 'react-icons/si';
+import { Progress } from 'antd';
+import { 
+  SiHtml5, 
+  SiCss3, 
+  SiJavascript, 
+  SiReact, 
+  SiRedux, 
+  SiTailwindcss, 
+  SiNextdotjs, 
+  SiTypescript 
+} from 'react-icons/si';
 import React from 'react';
 
 function Lessons() {
@@ -9,42 +18,42 @@ function Lessons() {
       title: 'HTML və CSS',
       description: 'Veb səhifələrin strukturunu yaratmaq və dizayn etmək. Responzivlik və grid sistemləri öyrənilir.',
       progress: 20,
-      icon: <SiHtml5 style={{ color: '#E34F26', fontSize: '2rem' }} />,
+      icon: <SiHtml5 className="text-[#E34F26] text-4xl" />,
     },
     {
       month: '2-ci ay',
       title: 'JavaScript əsasları',
       description: 'Dəyişənlər, funksiyalar, dövrlər, DOM manipulyasiyası və event-lərlə işləmə.',
       progress: 40,
-      icon: <SiJavascript style={{ color: '#F7DF1E', fontSize: '2rem' }} />,
+      icon: <SiJavascript className="text-[#F7DF1E] text-4xl" />,
     },
     {
       month: '3-cü ay',
       title: 'React əsasları',
       description: 'Komponent əsaslı arxitektura, state və props, React hook-ları, və formaların idarə olunması.',
       progress: 60,
-      icon: <SiReact style={{ color: '#61DAFB', fontSize: '2rem' }} />,
+      icon: <SiReact className="text-[#61DAFB] text-4xl" />,
     },
     {
       month: '4-cü ay',
       title: 'Redux və Redux Toolkit',
       description: 'State idarəetməsi, Redux Toolkit, middleware-lər və async axınlar.',
       progress: 80,
-      icon: <SiRedux style={{ color: '#764ABC', fontSize: '2rem' }} />,
+      icon: <SiRedux className="text-[#764ABC] text-4xl" />,
     },
     {
       month: '5-ci ay',
       title: 'Tailwind CSS və UI Dizayn',
       description: 'Tailwind CSS ilə UI dizaynları yaratmaq, hazır şablonlardan istifadə və optimizasiya.',
       progress: 90,
-      icon: <SiTailwindcss style={{ color: '#06B6D4', fontSize: '2rem' }} />,
+      icon: <SiTailwindcss className="text-[#06B6D4] text-4xl" />,
     },
     {
       month: '6-cı ay',
       title: 'Qabaqcıl React və Layihə',
       description: 'Performans optimizasiyası, React Router, və tam funksional bir layihənin hazırlanması.',
       progress: 100,
-      icon: <SiReact style={{ color: '#61DAFB', fontSize: '2rem' }} />,
+      icon: <SiReact className="text-[#61DAFB] text-4xl" />,
     },
   ];
 
@@ -54,45 +63,39 @@ function Lessons() {
       description: 'SSR, SSG, API routes və TypeScript ilə typing. Daha müasir texnologiyalar öyrənilir.',
       icons: (
         <>
-          <SiNextdotjs style={{ color: '#000000', fontSize: '2rem' }} />
-          <SiTypescript style={{ color: '#007ACC', fontSize: '2rem', marginLeft: '10px' }} />
+          <SiNextdotjs className="text-black text-4xl" />
+          <SiTypescript className="text-[#007ACC] text-4xl ml-3" />
         </>
       ),
     },
   ];
 
   return (
-    <div>
-      <h2 style={{marginBottom:"30px"}}>Kurs Proqramı:</h2>
-      <Row gutter={[16, 16]}>
+    <div className="p-6">
+      <h2 className="text-2xl font-bold mb-8">Kurs Proqramı:</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {modules.map((module, index) => (
-          <Col span={8} key={index}>
-            <Card title={module.month} bordered={true}>
-              <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-                {module.icon}
-                <h3 style={{ marginLeft: '10px' }}>{module.title}</h3>
-              </div>
-              <p>{module.description}</p>
-              <Progress percent={module.progress} />
-            </Card>
-          </Col>
+          <div key={index} className="bg-white p-6 shadow-lg rounded-lg">
+            <div className="flex items-center mb-4">
+              {module.icon}
+              <h3 className="ml-4 text-xl font-semibold">{module.title}</h3>
+            </div>
+            <p className="text-gray-600 mb-4">{module.description}</p>
+            <Progress percent={module.progress} />
+          </div>
         ))}
-      </Row>
+      </div>
 
-      <div style={{ marginTop: '50px' }}>
-        <h2>Əlavə Təklif</h2>
-        <Row gutter={[16, 16]}>
+      <div className="mt-12">
+        <h2 className="text-2xl font-bold mb-6">Əlavə Təklif</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {additionalModules.map((module, index) => (
-            <Col span={8} key={index}>
-              <Card title={module.title} bordered={true}>
-                <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-                  {module.icons}
-                </div>
-                <p>{module.description}</p>
-              </Card>
-            </Col>
+            <div key={index} className="bg-white p-6 shadow-lg rounded-lg">
+              <div className="flex items-center mb-4">{module.icons}</div>
+              <p className="text-gray-600">{module.description}</p>
+            </div>
           ))}
-        </Row>
+        </div>
       </div>
     </div>
   );

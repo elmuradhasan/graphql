@@ -6,12 +6,13 @@ import { Controller, useForm } from "react-hook-form";
 import { SIGNUP_MUTATION } from "../../graphql/queries";
 import { Link, useNavigate } from "react-router-dom";
 import signUpSchema from "../../schema/signUpSchema";
-import "../../style/style.css";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { toast } from "react-toastify";
+
 const SignUp: React.FC = () => {
   const navigate = useNavigate();
   const notify = () => toast.success("Qeydiyyatdan ugurla kecdiniz!");
+  const notifyError = (value: any) => toast.error(value);
 
   const {
     handleSubmit,
@@ -22,7 +23,7 @@ const SignUp: React.FC = () => {
     resolver: yupResolver(signUpSchema),
   });
   const [signup, { data, loading, error }] = useMutation(SIGNUP_MUTATION);
-    
+
   const onSubmit = async (datas: AddUserVariables) => {
     try {
       await signup({ variables: datas });
@@ -31,35 +32,32 @@ const SignUp: React.FC = () => {
         navigate("/login");
       }, 3000);
     } catch (err) {
-      console.error(err, "error");
+      console.log(err);
     }
     setValue("email", "");
     setValue("password", "");
+    setValue("username", "");
   };
 
   return (
     <Row
+      className="w-full h-screen bg-cover bg-center flex justify-center items-center"
       style={{
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100%",
-        backgroundImage: `url("https://wallpapers.com/images/hd/website-background-sdki780prxb1nfs5.jpg")`,
-        backgroundPosition: "center",
-        backgroundSize: "cover",
+        backgroundImage: `url("/images/image.png")`,
       }}
     >
-      <div className="mainRow">
-        <h2>Elmuradhasan saytında qeydiyyat formu</h2>
+      <div className="bg-white p-8 rounded-lg shadow-lg w-[45%] ">
+        <h2 className="text-2xl font-semibold text-center mb-6">Elmuradhasan saytında qeydiyyat formu</h2>
         <Form
           onFinish={handleSubmit(onSubmit)}
-          style={{ width: "500px", display: "flex", flexDirection: "column" }}
+          className="space-y-6"
         >
+          {/* Username Field */}
           <Form.Item
             label="İstifadəçi adı"
             validateStatus={errors.username ? "error" : ""}
             help={errors.username ? errors.username?.message : ""}
+            className="text-left"
             labelCol={{ span: 24 }} // This ensures the label takes a full row
             wrapperCol={{ span: 24 }}
           >
@@ -71,14 +69,18 @@ const SignUp: React.FC = () => {
                   {...field}
                   placeholder="İstifadəçi adını daxil edin"
                   size="large"
+                  className="border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 />
               )}
             />
           </Form.Item>
+
+          {/* Email Field */}
           <Form.Item
             label="Email"
             validateStatus={errors.email ? "error" : ""}
             help={errors.email ? errors.email?.message : ""}
+            className="text-left"
             labelCol={{ span: 24 }} // This ensures the label takes a full row
             wrapperCol={{ span: 24 }}
           >
@@ -90,14 +92,18 @@ const SignUp: React.FC = () => {
                   {...field}
                   placeholder="İstifadəçi emailini daxil edin"
                   size="large"
+                  className="border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 />
               )}
             />
           </Form.Item>
+
+          {/* Password Field */}
           <Form.Item
             label="Parol"
             validateStatus={errors.password ? "error" : ""}
             help={errors.password ? errors.password.message : ""}
+            className="text-left"
             labelCol={{ span: 24 }} // This ensures the label takes a full row
             wrapperCol={{ span: 24 }}
           >
@@ -113,31 +119,33 @@ const SignUp: React.FC = () => {
                   type="password"
                   placeholder="İstifadəçi parolunu daxil edin"
                   size="large"
+                  className="border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 />
               )}
             />
           </Form.Item>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginBottom: "10px",
-            }}
-          >
-            <span>Artıq hesabın var?</span> <Link to="/login">Daxil ol</Link>
+
+          {/* Extra Link */}
+          <div className="flex justify-between mb-4 text-sm">
+            <span>Artıq hesabın var?</span>
+            <Link to="/login" className="text-blue-600 hover:text-blue-800">
+              Daxil ol
+            </Link>
           </div>
+
+          {/* Submit Button */}
           <Button
             type="primary"
-            disabled={loading}
             size="large"
+            className="w-full"
+            disabled={loading}
             onClick={handleSubmit(onSubmit)}
           >
             {loading ? "Qeydiyyat..." : "Qeydiyyat"}
           </Button>
         </Form>
-
-        {error && <p>Error: {error.message}</p>}
       </div>
+      {error && notifyError(error.message)}
     </Row>
   );
 };
