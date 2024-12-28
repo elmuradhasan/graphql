@@ -1,4 +1,5 @@
 /node_modules
 /.pnp
 .pnp.js
-/.env
+# Add this to your .gitignore file
+.env
