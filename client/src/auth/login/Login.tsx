@@ -17,6 +17,7 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const notify = () => toast.success("Uğurla daxil olundu!");
+  const notifyError = (value: any) => toast.error(value);
   const {
     handleSubmit,
     control,
@@ -26,7 +27,8 @@ const Login: React.FC = () => {
     resolver: yupResolver(loginSchema),
   });
   const [login, { data, loading, error }] = useMutation(LOGIN_MUTATION);
-
+  console.log(loading);
+  
   const onSubmit = async (datas: AddUserVariables) => {
     try {
       const response = await login({ variables: datas });
@@ -52,14 +54,14 @@ const Login: React.FC = () => {
     <div className="flex flex-col lg:flex-row w-full h-screen">
       {/* Left Section */}
       <div className="flex flex-col items-center justify-center lg:w-1/2 bg-white-100 text-blue-600 p-6">
-        <h1 className="text-4xl mb-4">Elmuradhasan saytına giriş</h1>
-        <img src="./images/login.svg" alt="login" className="w-80 mb-4" />
-        <p className="text-lg">Xəyallarına gedəcək yolda sənə dəstək olacaq</p>
+        <h1  className="text-3xl  mb-[2em]">Elmuradhasan saytına giriş</h1>
+        <img src="./images/login.svg" alt="login" className="w-80 mb-[2em]" />
+        <p className="lg:text-lg  ">Xəyallarına gedəcək yolda sənə dəstək olacaq</p>
       </div>
 
       {/* Right Section */}
       <div className="flex flex-col items-center justify-center bg-gray-100 lg:w-1/2 p-6">
-        <h2 className="text-3xl mb-4">Xoş gəlmisən, Dost:)</h2>
+        <h2 className="text-3xl mb-6 text-[#FF5722]">Xoş gəlmisən, Dost:)</h2>
         <Form
           onFinish={handleSubmit(onSubmit)}
           className="w-[80%] space-y-4"
@@ -121,15 +123,16 @@ const Login: React.FC = () => {
 
           {/* Submit Button */}
           <Button
-            type="primary"
+            style={{backgroundColor:"#FF5722",color:"#fff"}}
             size="large"
             disabled={loading}
-            className="w-full"
+            className="w-full border-none"
             onClick={handleSubmit(onSubmit)}
           >
             {loading ? "Daxil olunur..." : "Daxil ol"}
           </Button>
         </Form>
+        {error && notifyError(error.message)}
       </div>
     </div>
   );

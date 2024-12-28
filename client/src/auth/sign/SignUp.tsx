@@ -46,8 +46,8 @@ const SignUp: React.FC = () => {
         backgroundImage: `url("/images/image.png")`,
       }}
     >
-      <div className="bg-white p-8 rounded-lg shadow-lg w-[45%] ">
-        <h2 className="text-2xl font-semibold text-center mb-6">Elmuradhasan saytında qeydiyyat formu</h2>
+      <div className="bg-white p-8 rounded-lg shadow-lg lg:w-[45%] md:w-[80%]   ">
+        <h2 className="lg:text-2xl font-semibold text-center mb-6">Elmuradhasan saytında qeydiyyat formu</h2>
         <Form
           onFinish={handleSubmit(onSubmit)}
           className="space-y-6"
@@ -128,16 +128,16 @@ const SignUp: React.FC = () => {
           {/* Extra Link */}
           <div className="flex justify-between mb-4 text-sm">
             <span>Artıq hesabın var?</span>
-            <Link to="/login" className="text-blue-600 hover:text-blue-800">
+            <Link to="/login" className="text-[#FF5722] hover:text-blue-800">
               Daxil ol
             </Link>
           </div>
 
           {/* Submit Button */}
           <Button
-            type="primary"
             size="large"
-            className="w-full"
+            className="w-full border-none "
+            style={{backgroundColor:"#FF5722",color:"#fff"}}
             disabled={loading}
             onClick={handleSubmit(onSubmit)}
           >

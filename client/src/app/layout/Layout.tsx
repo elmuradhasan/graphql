@@ -93,6 +93,7 @@ const Layouts: React.FC<{ collapsed: boolean; setCollapsed: any }> = ({
           position: "fixed",
           top: 0,
           left: collapsed ? "80px" : "200px", // Adjust for Sider
+          transition: "left  0.3s", 
           width: collapsed ? "calc(100% - 80px)" : "calc(100% - 200px)", // Dynamic width
           zIndex: 1000,
           padding: 0,
@@ -113,6 +114,7 @@ const Layouts: React.FC<{ collapsed: boolean; setCollapsed: any }> = ({
             height: 64,
           }}
         />
+        
 
         <Dropdown.Button
           menu={menuProps}

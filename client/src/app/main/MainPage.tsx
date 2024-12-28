@@ -28,7 +28,7 @@ const MainPage = () => {
             </div>
           </div>
 
-          <p className="text-gray-700 text-base sm:text-lg lg:text-lg mt-4 px-4 sm:px-0">
+          <p className="text-gray-700 text-base sm:text-lg lg:text-lg mt-[50px] px-4 sm:px-0">
             React, və digər müasir veb texnologiyaları ilə işləyərək yaradıcı və
             istifadəçi dostu veb tətbiqləri hazırlayıram
           </p>
@@ -39,9 +39,9 @@ const MainPage = () => {
           className="flex justify-center lg:justify-center"
         >
           <img
-            src="/images/undraw.svg"
+            src="/images/main.svg"
             alt="Illustration"
-            className="w-60 md:w-80 lg:w-[400px] object-contain"
+            className="w-full md:w-80 lg:w-[500px] object-contain"
           />
         </Col>
       </Row>
