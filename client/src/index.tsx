@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import { store } from "../src/store/store";
 import './tailwind.css'; 
 const client = new ApolloClient({
-  uri: "http://localhost:4000/",
+  uri: process.env.REACT_APP_API_URL,
   cache: new InMemoryCache(),
 });
 const root = ReactDOM.createRoot(
