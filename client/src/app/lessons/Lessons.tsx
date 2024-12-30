@@ -10,6 +10,7 @@ import {
   SiTypescript 
 } from 'react-icons/si';
 import React from 'react';
+import { YoutubeOutlined } from '@ant-design/icons';
 
 function Lessons() {
   const modules = [
@@ -61,6 +62,7 @@ function Lessons() {
     {
       title: 'Next.js və TypeScript',
       description: 'SSR, SSG, API routes və TypeScript ilə typing. Daha müasir texnologiyalar öyrənilir.',
+      youtube:'Youtube_da paylaşdığım nümunə dərsimə keçid edib baxa bilərsiz)',
       icons: (
         <>
           <SiNextdotjs className="text-black text-4xl" />
@@ -87,16 +89,29 @@ function Lessons() {
       </div>
 
       <div className="mt-12">
-        <h2 className="text-2xl font-bold mb-6">Əlavə Təklif</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {additionalModules.map((module, index) => (
-            <div key={index} className="bg-white p-6 shadow-lg rounded-lg">
-              <div className="flex items-center mb-4">{module.icons}</div>
-              <p className="text-gray-600">{module.description}</p>
-            </div>
-          ))}
-        </div>
+  <h2 className="text-2xl font-bold mb-6">Əlavə Təklif</h2>
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    {additionalModules.map((module, index) => (
+      <div key={index} className="bg-white p-6 shadow-lg rounded-lg">
+        <div className="flex items-center mb-4">{module.icons}</div>
+        <p className="text-gray-600">{module.description}</p>
+        <p className='mt-[50px] flex justify-center'><YoutubeOutlined className='text-red-600 text-6xl '/></p>
+        <p className="text-red-600 mt-[100px]">{module.youtube}</p>
       </div>
+    ))}
+
+    {/* Add the iframe as another grid item */}
+    <div className="bg-white p-6 shadow-lg rounded-lg">
+      <iframe
+        src="https://www.youtube.com/embed/WPEUdSxYcmQ?si=OGOnwkWonswjO9d9&amp;controls=0" // Replace with your desired URL
+        title="Əlavə Təklif "
+        className="w-full h-64 md:h-96 border rounded-lg"
+      ></iframe>
+    </div>
+  </div>
+</div>
+
+      
     </div>
   );
 }

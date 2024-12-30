@@ -3,18 +3,18 @@ import { Col, Row } from "antd";
 const MainPage = () => {
   return (
     <>
-      <Row className="min-h-[75vh] justify-center items-center">
+      <Row className="min-h-[75vh] justify-center items-center lg:p-6">
         <Col
           xs={24} sm={24} md={24} lg={12} // Define column widths for different screen sizes
           className="text-center lg:text-left w-full px-4 mb-6 lg:mb-0"
         >
-          <span className="block text-lg lg:text-xl text-blue-600 mb-4">
+          <span className="block text-lg lg:text-xl text-blue-600 lg:mb-4">
             Salam, mənim adım <b>Elmuraddır</b>
           </span>
 
-          <div className="relative w-full h-[240px] text-center flex flex-col justify-center items-center py-8 mb-8">
+          <div className="relative w-full h-[240px] text-center flex flex-col justify-center items-center py-8 lg:mb-8">
             <div
-              className="absolute inset-0 bg-cover bg-center"
+              className="absolute inset-0 bg-cover bg-center mt-[20px]"
               style={{ backgroundImage: `url('/images/paper-shape.png')` }}
             ></div>
 
@@ -28,7 +28,7 @@ const MainPage = () => {
             </div>
           </div>
 
-          <p className="text-gray-700 text-base sm:text-lg lg:text-lg mt-[50px] px-4 sm:px-0">
+          <p className="text-gray-700 text-base sm:text-lg lg:text-lg lg:mt-[50px] px-4 sm:px-0">
             React, və digər müasir veb texnologiyaları ilə işləyərək yaradıcı və
             istifadəçi dostu veb tətbiqləri hazırlayıram
           </p>

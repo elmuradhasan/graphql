@@ -1,34 +1,30 @@
-import React from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { Card } from 'antd';
-import { MailOutlined, PhoneOutlined, FacebookOutlined, LinkedinOutlined, TwitterOutlined } from '@ant-design/icons';
-import SocialMediaLinks from './socialmedia/SocialMedia';
-
-interface FormValues {
-  name: string;
-  email: string;
-  message: string;
-}
-
-const schema = yup.object().shape({
-  name: yup.string().required('Zəhmət olmasa adınızı qeyd edin'),
-  email: yup.string().email('Email formatı düzgün deyil').required('Zəhmət olmasa emailinizi qeyd edin'),
-  message: yup.string().required('Zəhmət olmasa mesajınızı yazın'),
-});
+import React from "react";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Card } from "antd";
+import {
+  MailOutlined,
+  PhoneOutlined,
+} from "@ant-design/icons";
+import SocialMediaLinks from "./socialmedia/SocialMedia";
+import ContactSchema from "../../schema/contactSchema";
+import { FormValues } from "../../types/GlobalType";
 
 const ContactPage: React.FC = () => {
-  const { control, handleSubmit, formState: { errors } } = useForm<FormValues>({
-    resolver: yupResolver(schema),
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({
+    resolver: yupResolver(ContactSchema),
   });
 
   const onSubmit = (data: FormValues) => {
-    console.log('Form Data:', data);
+    console.log("Form Data:", data);
   };
 
   return (
-    <div className="flex flex-col lg:flex-row gap-8 p-6 lg:p-12">
+    <div className="flex flex-col lg:flex-row gap-8 lg:p-6 lg:p-12">
       {/* Contact Form */}
       <Card className="flex-1 shadow-lg" title="Mənimlə əlaqə" bordered={false}>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -41,12 +37,16 @@ const ContactPage: React.FC = () => {
                 <input
                   {...field}
                   type="text"
-                  className={`w-full p-3 border rounded  outline-none  ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
+                  className={`w-full p-3 border rounded  outline-none  ${
+                    errors.name ? "border-red-500" : "border-gray-300"
+                  }`}
                   placeholder="Adınızı qeyd edin"
                 />
               )}
             />
-            {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
+            {errors.name && (
+              <p className="text-red-500 text-sm">{errors.name.message}</p>
+            )}
           </div>
           <div>
             <label className="block text-gray-700 font-medium">Email</label>
@@ -57,12 +57,16 @@ const ContactPage: React.FC = () => {
                 <input
                   {...field}
                   type="email"
-                  className={`w-full p-3 border rounded  outline-none ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
+                  className={`w-full p-3 border rounded  outline-none ${
+                    errors.email ? "border-red-500" : "border-gray-300"
+                  }`}
                   placeholder="Emailinizi qeyd edin"
                 />
               )}
             />
-            {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
+            {errors.email && (
+              <p className="text-red-500 text-sm">{errors.email.message}</p>
+            )}
           </div>
           <div>
             <label className="block text-gray-700 font-medium">Mesaj</label>
@@ -72,41 +76,54 @@ const ContactPage: React.FC = () => {
               render={({ field }) => (
                 <textarea
                   {...field}
-                  className={`w-full p-3 border  outline-none resize-none rounded ${errors.message ? 'border-red-500' : 'border-gray-300'}`}
+                  className={`w-full p-3 border  outline-none resize-none rounded ${
+                    errors.message ? "border-red-500" : "border-gray-300"
+                  }`}
                   placeholder="Mesajını buraya yaz"
                   rows={5}
                 />
               )}
             />
-            {errors.message && <p className="text-red-500 text-sm">{errors.message.message}</p>}
+            {errors.message && (
+              <p className="text-red-500 text-sm">{errors.message.message}</p>
+            )}
           </div>
           <button
             type="submit"
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded shadow-md"
           >
-           Mesaj göndər
+            Mesaj göndər
           </button>
         </form>
       </Card>
 
       {/* Contact Details */}
-      <Card className="flex-1 shadow-lg" title="Əlaqə məlumatı" bordered={false}>
+      <Card
+        className="flex-1 shadow-lg"
+        title="Əlaqə məlumatı"
+        bordered={false}
+      >
         <div className="space-y-4">
           <p>
-            <MailOutlined className="mr-2 text-lg" /> 
-            Email: <a href="mailto:hsnlimurad540@gmail.com" className="text-blue-600 hover:underline">hsnlimurad540@gmail.com</a>
+            <MailOutlined className="mr-2 text-lg" />
+            Email:{" "}
+            <a
+              href="mailto:hsnlimurad540@gmail.com"
+              className="text-blue-600 hover:underline"
+            >
+              hsnlimurad540@gmail.com
+            </a>
           </p>
           <p>
-            <PhoneOutlined className="mr-2 text-lg" /> 
+            <PhoneOutlined className="mr-2 text-lg" />
             Telefon: 051-446-44-42
           </p>
           <p>Məni buradan izlə:</p>
-     <SocialMediaLinks />
+          <SocialMediaLinks />
         </div>
-        <img src='./images/social.svg'/>
+        <img src="./images/social.svg" alt="Social" />
       </Card>
     </div>
   );
 };
-
 export default ContactPage;

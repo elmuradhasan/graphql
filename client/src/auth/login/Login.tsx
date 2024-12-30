@@ -42,7 +42,7 @@ const Login: React.FC = () => {
       notify();
       setTimeout(() => {
         navigate("/");
-      }, 3000);
+      }, 2000);
     } catch (err) {
       console.error(err, "Salam");
     }

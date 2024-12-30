@@ -1,28 +1,15 @@
-import { ClockCircleOutlined } from "@ant-design/icons";
-import { Timeline } from "antd";
+import { Col, Row } from "antd";
 import React from "react";
-
+import ExperienceSteps from "./workexperince/ExperienceSteps";
 function Profile() {
   return (
-    <Timeline
-    items={[
-      {
-        children: 'Bank Respublika',
-        color: 'green',
-      },
-      {
-        children: 'İnformasiya Texnologiyaları İnistitutu',
-      },
-      {
-        dot: <ClockCircleOutlined className="timeline-clock-icon" />,
-        color: 'red',
-        children: 'Hərbi Xidmət',
-      },
-      {
-        children: 'Prospect Clould ERP',
-      },
-    ]}
-  />
+    <Row className="lg:pl-6">
+      <Col span={24}>
+      <h1 className="text-3xl mb-2 mt-2">İş təcrübəsi</h1>
+       <ExperienceSteps />
+      </Col>
+
+    </Row>
   );
 }
 

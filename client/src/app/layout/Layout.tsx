@@ -108,6 +108,7 @@ const Layouts: React.FC<{ collapsed: boolean; setCollapsed: any }> = ({
           type="text"
           icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
           onClick={() => setCollapsed(!collapsed)}
+          disabled={windowWidth < 768 ? true : false}
           style={{
             fontSize: "16px",
             width: 64,
@@ -131,7 +132,7 @@ const Layouts: React.FC<{ collapsed: boolean; setCollapsed: any }> = ({
 
       <Content
         style={{
-          margin: "80px 16px 24px",
+          margin: "80px 0px 24px",
           minHeight: 280,
           background: colorBgContainer,
           borderRadius: borderRadiusLG,

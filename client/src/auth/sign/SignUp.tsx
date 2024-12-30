@@ -30,7 +30,7 @@ const SignUp: React.FC = () => {
       notify();
       setTimeout(() => {
         navigate("/login");
-      }, 3000);
+      }, 2000);
     } catch (err) {
       console.log(err);
     }
@@ -138,7 +138,7 @@ const SignUp: React.FC = () => {
             size="large"
             className="w-full border-none "
             style={{backgroundColor:"#FF5722",color:"#fff"}}
-            disabled={loading}
+            disabled={true}
             onClick={handleSubmit(onSubmit)}
           >
             {loading ? "Qeydiyyat..." : "Qeydiyyat"}
