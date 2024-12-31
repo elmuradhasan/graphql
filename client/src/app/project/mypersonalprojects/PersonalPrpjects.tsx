@@ -30,12 +30,20 @@ const projects = [
     category: "Full-Stack",
     tags: ["Html", "Css", "Js", "React", "React-toolkit","Node.js", "Express", "MongoDB"],
   },
+  {
+    title: "Bank Respublika Proyekti",
+    description: "İşə qəbul tapşırığı.",
+    href: "https://bankrespublikaproject.netlify.app/",
+    category: "Full-Stack",
+    tags: ["Html", "Css", "Js", "React", "React-toolkit","Node.js", "Express", "MongoDB"],
+  },
 ];
+
 
 const categories = ["Hamısı", "Frontend", "Full-Stack"];
 
 const PersonalProjects = () => {
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState("Hamısı");
 
   const filteredProjects =
     selectedCategory === "Hamısı"
