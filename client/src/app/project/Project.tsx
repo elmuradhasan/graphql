@@ -1,83 +1,139 @@
-import { WifiOutlined, EyeOutlined, AimOutlined } from "@ant-design/icons";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useQuery } from "@apollo/client";
-import { Modal } from "antd";
-import React, { useState } from "react";
 import { GET_MOVIES } from "../../graphql/queries";
+import { toggleLike, setMovies } from "../../slices/moviesSlice";
+import { RootState } from "../../store/store";
+import { Modal, Carousel } from "antd";
+import {
+  WifiOutlined,
+  EyeOutlined,
+  HeartOutlined,
+  HeartFilled,
+} from "@ant-design/icons";
 import Loading from "../loading/Loading";
+import PersonalProjects from "./mypersonalprojects/PersonalPrpjects";
 
+type Movie = {
+  title: string;
+  poster: string;
+  rating: string;
+  liked: boolean;
+  description?: string;
+};
 
-function Projects() {
-  const { loading, error, data } = useQuery(GET_MOVIES);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+type CarouselItem = {
+  href: string;
+  title: string;
+  description: string;
+};
 
-  const showModal = () => {
+function Projects(): JSX.Element {
+  const dispatch = useDispatch();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
+  const { movies } = useSelector((state: RootState) => state.movies);
+  const { data, loading, error } = useQuery(GET_MOVIES);
+
+  const [dotPosition] = useState<"left" | "right" | "top" | "bottom">("left");
+
+  useEffect(() => {
+    if (data) {
+      dispatch(setMovies(data.movies));
+    }
+  }, [data, dispatch]);
+
+  const handleLike = (title: string): void => {
+    dispatch(toggleLike(title));
+  };
+
+  const showModal = (movie: Movie): void => {
+    setSelectedMovie(movie);
     setIsModalOpen(true);
   };
 
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-
   if (loading) return <Loading />;
-  if (error) return <p className="text-center text-red-500">Error: {error.message}</p>;
+  if (error) return <p className="text-red-500">Error: {error.message}</p>;
+
+  const carouselItems: CarouselItem[] = [
+    {
+      href: "https://digitsell.netlify.app",
+      title: "DigitSell Lahiyəsi",
+      description:
+        "Lahiyələr öyrənmə müddətində yazılıb, istər kod, istərsə də dizayn tərəfdə çatışmazlıqlar ola bilər.",
+    },
+    {
+      href: "https://elmuradhasanli.netlify.app/",
+      title: "Elmurad Həsənov",
+      description: "İlk portfolio veb saytım",
+    },
+    {
+      href: "https://surpriseaz.netlify.app",
+      title: "Surprise Lahiyəsi",
+      description: "E-commerce yazılmış lahiyə",
+    },
+    {
+      href: "https://kontaktimaz.netlify.app",
+      title: "Kontaktimaz Lahiyəsi",
+      description:
+        "Müxtəlif funksionallıqlar mövcuddur. Şəxsin əlavə olunması, yenilənməsi, silinməsi, ətraflı baxış və s.",
+    },
+  ];
 
   return (
-    <>
-      <h1 className="text-2xl font-bold text-center mt-4">Bu modulun məqsədi</h1>
-      <p className="text-center text-gray-600 mt-2">
-        müxtəlif bilikləri bir arada tətbiq etməkdir. Məsələn burda olan məlumatlar api-dən gəlir və müxtəlif funksionallıqlar var
+    <div className="p-4 lg:p-8">
+      <h1 className="text-3xl font-bold text-center mt-4">Filmlər</h1>
+      <p className="text-lg text-center mt-2 mb-8">
+        Modulun məqsədi müxtəlif funksionallıqların tətbiq olunmasını göstərməkdir.
       </p>
-      <div className="flex flex-wrap justify-center gap-6 mt-6">
-        {data.movies.map(
-          (movie: { title: string; poster: string; rating: string }, index: number) => (
-            <div
-              key={index}
-              className="bg-white shadow-lg rounded-lg w-72 overflow-hidden"
-            >
-              <img
-                alt="example"
-                src={movie.poster}
-                className="w-full h-64 object-cover"
-              />
-              <div className="p-4">
-                <div className="flex items-center mb-2">
-                  <img
-                    src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                    alt="Avatar"
-                    className="w-8 h-8 rounded-full mr-3"
-                  />
-                  <h2 className="font-semibold text-lg">{movie.title}</h2>
-                </div>
-                <p className="text-gray-500">IMDB {movie.rating}</p>
-              </div>
-              <div className="flex justify-around py-2 border-t">
-                <WifiOutlined className="text-blue-500 text-xl cursor-pointer" />
-                <EyeOutlined
-                  className="text-green-500 text-xl cursor-pointer"
-                  onClick={showModal}
-                />
-                <AimOutlined className="text-red-500 text-xl cursor-pointer" />
-              </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {movies.map((movie: Movie) => (
+          <div
+            key={movie.title}
+            className="bg-white shadow-lg rounded-lg flex flex-col overflow-hidden"
+          >
+            <img
+              alt={movie.title}
+              src={movie.poster}
+              className="w-full h-64 object-cover"
+            />
+            <div className="p-4 flex-1">
+              <h2 className="font-semibold text-lg truncate">{movie.title}</h2>
+              <p className="text-gray-500 mt-1">IMDB: {movie.rating}</p>
             </div>
-          )
-        )}
+            <div className="flex justify-around border-t p-2">
+              <WifiOutlined className="text-blue-500 text-xl cursor-pointer" />
+              <EyeOutlined
+                className="text-green-500 text-xl cursor-pointer"
+                onClick={() => showModal(movie)}
+              />
+              {movie.liked ? (
+                <HeartFilled
+                  className="text-red-500 text-xl cursor-pointer"
+                  onClick={() => handleLike(movie.title)}
+                />
+              ) : (
+                <HeartOutlined
+                  className="text-gray-500 text-xl cursor-pointer"
+                  onClick={() => handleLike(movie.title)}
+                />
+              )}
+            </div>
+          </div>
+        ))}
       </div>
+      <PersonalProjects />
       <Modal
-        title="Basic Modal"
+        title={selectedMovie?.title || "Movie Details"}
         open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        width={"70%"}
+        onOk={() => setIsModalOpen(false)}
+        onCancel={() => setIsModalOpen(false)}
+        footer={null}
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        <p>{selectedMovie?.description || "Details will go here."}</p>
       </Modal>
-    </>
+    </div>
   );
 }
 

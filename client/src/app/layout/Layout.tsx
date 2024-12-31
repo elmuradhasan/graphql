@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import {
+import Icon, {
+  HeartFilled,
   LogoutOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Button, Dropdown, Layout, MenuProps, theme } from "antd";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Badge, Button, Dropdown, Layout, MenuProps, theme } from "antd";
+import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../slices/authSlice";
 import MainPage from "../main/MainPage";
@@ -16,6 +17,7 @@ import { RootState } from "../../store/store";
 import { saveInfo } from "../../slices/userSlice";
 import Contact from "../contact/Contact";
 import Lessons from "../lessons/Lessons";
+import LikedMovies from "../like/LikePage";
 
 const { Header, Content } = Layout;
 
@@ -26,7 +28,7 @@ const Layouts: React.FC<{ collapsed: boolean; setCollapsed: any }> = ({
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { email, username } = useSelector((state: RootState) => state.user);
-
+ const {  likedMovies } = useSelector((state: RootState) => state.movies);
   // Load user data on mount
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -93,8 +95,8 @@ const Layouts: React.FC<{ collapsed: boolean; setCollapsed: any }> = ({
           position: "fixed",
           top: 0,
           left: collapsed ? "80px" : "200px", // Adjust for Sider
-          transition: "left  0.3s", 
-          width: collapsed ? "calc(100% - 80px)" : "calc(100% - 200px)", // Dynamic width
+          transition: "left  0.3s",
+          width: collapsed ? "calc(100% - 80px)" : "calc(100% - 200px)",
           zIndex: 1000,
           padding: 0,
           background: colorBgContainer,
@@ -115,7 +117,11 @@ const Layouts: React.FC<{ collapsed: boolean; setCollapsed: any }> = ({
             height: 64,
           }}
         />
-        
+        <Link to="/like">
+          <Badge count={likedMovies.length}>
+            <HeartFilled className="text-gray-500 text-xl cursor-pointer " />
+          </Badge>
+        </Link>
 
         <Dropdown.Button
           menu={menuProps}
@@ -144,6 +150,7 @@ const Layouts: React.FC<{ collapsed: boolean; setCollapsed: any }> = ({
           <Route path="/projects" element={<Projects />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/lessons" element={<Lessons />} />
+          <Route path="/like" element={<LikedMovies/>}/>
         </Routes>
       </Content>
     </Layout>

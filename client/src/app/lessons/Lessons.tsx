@@ -1,7 +1,6 @@
 import { Progress } from 'antd';
 import { 
-  SiHtml5, 
-  SiCss3, 
+  SiHtml5,  
   SiJavascript, 
   SiReact, 
   SiRedux, 
@@ -73,11 +72,11 @@ function Lessons() {
   ];
 
   return (
-    <div className="p-6">
+    <div className="lg:p-6">
       <h2 className="text-2xl font-bold mb-8">Kurs Proqramı:</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {modules.map((module, index) => (
-          <div key={index} className="bg-white p-6 shadow-lg rounded-lg">
+          <div key={index} className="bg-white p-3 md:p-4 lg:p-6 shadow-lg rounded-lg">
             <div className="flex items-center mb-4">
               {module.icon}
               <h3 className="ml-4 text-xl font-semibold">{module.title}</h3>

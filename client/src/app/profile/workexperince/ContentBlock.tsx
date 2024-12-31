@@ -21,11 +21,11 @@ const ContentBlock: React.FC<ContentBlockProps> = ({
         <img
           src={image}
           alt={title}
-          className="rounded-lg shadow-md w-[200px]  object-contain"
+          className="rounded-lg shadow-md w-[200px]  object-contain mb-[20px]"
         />
     )}
     <div className="lg:w-[60%] md:w-[80%] sm:mt-4">
-      <h2 className="text-2xl text-gray-800 text-justify">
+      <h2 className="text-2xl text-gray-800 text-justify mt-[20px] mb-2 lg:mt-0">
         <b>Şirkət: </b>
         {title}
       </h2>

@@ -50,15 +50,16 @@ const Home = () => {
               icon: <UserOutlined />,
               label: "Elmurad Həsənov",
             },
-            {
-              key: "/projects",
-              icon: <LaptopOutlined />,
-              label: "Lahiyələr",
-            },
+
             {
               key: "/lessons",
               icon: <FolderOpenOutlined />,
               label: "Dərslər",
+            },
+            {
+              key: "/projects",
+              icon: <LaptopOutlined />,
+              label: "Lahiyələr",
             },
             {
               key: "/contact",

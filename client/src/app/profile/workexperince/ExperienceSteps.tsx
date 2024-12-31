@@ -87,7 +87,14 @@ const ExperienceSteps: React.FC = () => {
             Əvvəlki
           </Button>
         )}
+          <Button className="mr-2 p-[20px]">
+          <a
+                    href="./images/ElmuradHasanovlastcv.pdf"
+                    download="ElmuradHasanov"
+                    >Download Cv</a>
+          </Button>
       </div>
+
     </div>
   );
 };
