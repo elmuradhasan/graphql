@@ -1,5 +1,5 @@
 import { gql, useMutation } from "@apollo/client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AddUserVariables } from "../../types/GlobalType";
 import { Button, Form, Input } from "antd";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -12,12 +12,23 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { logins } from "../../slices/authSlice";
 import { saveInfo } from "../../slices/userSlice";
-
+import FullPage from "../../app/loading/FullPage";
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [x, setx] = useState(true)
   const notify = () => toast.success("Uğurla daxil olundu!");
   const notifyError = (value: any) => toast.error(value);
+  useEffect(() => {
+  const fullShow = setTimeout(()=>{
+    setx(false)
+   },4000)
+   return () => {
+    clearTimeout(fullShow)
+  }
+  }, [])
+
+  
   const {
     handleSubmit,
     control,
@@ -26,14 +37,12 @@ const Login: React.FC = () => {
   } = useForm({
     resolver: yupResolver(loginSchema),
   });
-  const [login, { data, loading, error }] = useMutation(LOGIN_MUTATION);
-  console.log(loading);
-  
+  const [login, { data, loading, error }] = useMutation(LOGIN_MUTATION); 
   const onSubmit = async (datas: AddUserVariables) => {
     try {
       const response = await login({ variables: datas });
       localStorage.setItem("token", response.data?.login.token || "");
-      console.log(response);
+      
 
       dispatch(saveInfo(response.data?.login.user));
       localStorage.setItem("user", JSON.stringify(response.data?.login.user));
@@ -52,8 +61,9 @@ const Login: React.FC = () => {
 
   return (
     <div className="flex flex-col lg:flex-row w-full h-screen">
-      {/* Left Section */}
-      <div className="flex flex-col items-center justify-center lg:w-1/2 bg-white-100 text-blue-600 p-6">
+       {
+        x ? <FullPage /> : <>
+             <div className="flex flex-col items-center justify-center lg:w-1/2 bg-white-100 text-blue-600 p-6">
         <h1  className="text-3xl  mb-[2em]">Elmuradhasan saytına giriş</h1>
         <img src="./images/login.svg" alt="login" className="w-80 mb-[2em]" />
         <p className="lg:text-lg  ">Xəyallarına gedəcək yolda sənə dəstək olacaq</p>
@@ -92,7 +102,7 @@ const Login: React.FC = () => {
           <Form.Item
             label="Parol"
             validateStatus={errors.password ? "error" : ""}
-            help={errors.password ? errors.password.message : ""}
+            help={errors.password ? errors.password?.message : ""}
             labelCol={{ span: 24 }} // This ensures the label takes a full row
             wrapperCol={{ span: 24 }}
           >
@@ -132,8 +142,10 @@ const Login: React.FC = () => {
             {loading ? "Daxil olunur..." : "Daxil ol"}
           </Button>
         </Form>
-        {error && notifyError(error.message)}
+        {/* {error && notifyError(error.message)} */}
       </div>
+        </>
+       }
     </div>
   );
 };
