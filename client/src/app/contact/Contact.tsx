@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Card } from "antd";
+import { Card, Input } from "antd";
 import {
   MailOutlined,
   PhoneOutlined,
@@ -9,6 +9,8 @@ import {
 import SocialMediaLinks from "./socialmedia/SocialMedia";
 import ContactSchema from "../../schema/contactSchema";
 import { FormValues } from "../../types/GlobalType";
+import { useMutation } from "@apollo/client";
+import { SEND_EMAIL } from "../../graphql/queries";
 
 const ContactPage: React.FC = () => {
   const {
@@ -18,9 +20,19 @@ const ContactPage: React.FC = () => {
   } = useForm<FormValues>({
     resolver: yupResolver(ContactSchema),
   });
-
-  const onSubmit = (data: FormValues) => {
+  const [sendEmail] = useMutation(SEND_EMAIL);
+  const onSubmit = async (data: FormValues) => {
     console.log("Form Data:", data);
+    try {
+      const response = await sendEmail({
+        variables: data
+      });
+
+      alert(response.data.sendEmail);
+    } catch (error) {
+      console.error("Error sending email:", error);
+      alert("Failed to send message. Please try again.");
+    }
   };
 
   return (
@@ -34,7 +46,7 @@ const ContactPage: React.FC = () => {
               name="name"
               control={control}
               render={({ field }) => (
-                <input
+                <Input
                   {...field}
                   type="text"
                   className={`w-full p-3 border rounded  outline-none  ${
@@ -54,9 +66,8 @@ const ContactPage: React.FC = () => {
               name="email"
               control={control}
               render={({ field }) => (
-                <input
+                <Input
                   {...field}
-                  type="email"
                   className={`w-full p-3 border rounded  outline-none ${
                     errors.email ? "border-red-500" : "border-gray-300"
                   }`}

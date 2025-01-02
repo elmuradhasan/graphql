@@ -87,7 +87,7 @@ const ExperienceSteps: React.FC = () => {
             Əvvəlki
           </Button>
         )}
-          <Button className="mr-2 p-[20px]">
+          <Button className="p-[20px] mt-[10px]">
           <a
                     href="./images/ElmuradHasanovlastcv.pdf"
                     download="ElmuradHasanov"

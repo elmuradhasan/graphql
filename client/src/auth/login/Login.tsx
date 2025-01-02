@@ -1,4 +1,4 @@
-import { gql, useMutation } from "@apollo/client";
+import {  useMutation } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import { AddUserVariables } from "../../types/GlobalType";
 import { Button, Form, Input } from "antd";
@@ -42,18 +42,16 @@ const Login: React.FC = () => {
     try {
       const response = await login({ variables: datas });
       localStorage.setItem("token", response.data?.login.token || "");
-      
-
       dispatch(saveInfo(response.data?.login.user));
       localStorage.setItem("user", JSON.stringify(response.data?.login.user));
-
       dispatch(logins());
       notify();
       setTimeout(() => {
         navigate("/");
       }, 2000);
     } catch (err) {
-      console.error(err, "Salam");
+      console.error(err);
+     notifyError(error?.message)
     }
     setValue("email", "");
     setValue("password", "");
@@ -142,7 +140,6 @@ const Login: React.FC = () => {
             {loading ? "Daxil olunur..." : "Daxil ol"}
           </Button>
         </Form>
-        {/* {error && notifyError(error.message)} */}
       </div>
         </>
        }

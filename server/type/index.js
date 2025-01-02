@@ -17,6 +17,9 @@ const typeDefs = gql`
   type Query {
     me: User
   }
+type Mutation {
+  sendEmail(name: String!, email: String!, message: String!): String
+}
 
   type Mutation {
     login(email: String!, password: String!): AuthPayload!

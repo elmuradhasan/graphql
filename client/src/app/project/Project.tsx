@@ -34,9 +34,6 @@ function Projects(): JSX.Element {
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
   const { movies } = useSelector((state: RootState) => state.movies);
   const { data, loading, error } = useQuery(GET_MOVIES);
-
-  const [dotPosition] = useState<"left" | "right" | "top" | "bottom">("left");
-
   useEffect(() => {
     if (data) {
       dispatch(setMovies(data.movies));

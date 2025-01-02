@@ -19,6 +19,7 @@
     "graphql-scalars": "^1.24.0",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^5.9.2",
+    "nodemailer": "^6.9.16",
     "reflect-metadata": "^0.2.2",
     "typeorm": "^0.3.20"
   },

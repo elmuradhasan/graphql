@@ -1,6 +1,7 @@
 var bcrypt = require("bcryptjs");
 const { GraphQLJSON } = require("graphql-scalars");
 var jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 var db = require("../models/index").db;
 require('dotenv').config();
  module.exports = {
@@ -90,6 +91,29 @@ require('dotenv').config();
           });
       });
     },
-
+      sendEmail: async (_, { name, email, message }) => {
+        const transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+            user: process.env.GMAIL_USER, // Your Gmail address
+            pass: process.env.GMAIL_PASS, // Your Gmail app password
+          },
+        });
+  
+        const mailOptions = {
+          from: email,
+          to: process.env.GMAIL_USER,
+          subject: "New Contact Form Submission",
+          text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
+        };
+  
+        try {
+          await transporter.sendMail(mailOptions);
+          return "Email sent successfully!";
+        } catch (error) {
+          console.error("Error sending email:", error);
+          throw new Error("Failed to send email.");
+        }
+      },
   },
 };
