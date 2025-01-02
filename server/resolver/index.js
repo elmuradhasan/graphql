@@ -27,7 +27,7 @@ require('dotenv').config();
       // Check if the user already exists
       const existingUser = await userRepository.findOneBy({ email });
       if (existingUser) {
-        throw new Error("This user already exists");
+        throw new Error("İstifadəçi artıq mövcuddur");
       }
 
       // Hash the password
@@ -70,14 +70,14 @@ require('dotenv').config();
       return userRepository.findOneBy({ email: args.email }).then((user) => {
         if (!user) {
           console.log("No user found with this email:", args.email);
-          throw new Error("Invalid email or password"); // No user exists
+          throw new Error("İstifadəçi mövcud deyil"); // No user exists
         }
         return bcrypt
           .compare(String(args.password), String(user.password))
           .then((isValid) => {
             if (!isValid) {
               console.log("Password does not match for user:", args.email);
-              throw new Error("Invalid email or password");
+              throw new Error("Email və ya parol yanlışdır");
             }
 
             const token = jwt.sign({ userId: user.id },process.env.SECRET, {
@@ -103,16 +103,16 @@ require('dotenv').config();
         const mailOptions = {
           from: email,
           to: process.env.GMAIL_USER,
-          subject: "New Contact Form Submission",
+          subject: "Yeni Mesaj var",
           text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
         };
   
         try {
           await transporter.sendMail(mailOptions);
-          return "Email sent successfully!";
+          return "Email uğurla göndərildi!";
         } catch (error) {
           console.error("Error sending email:", error);
-          throw new Error("Failed to send email.");
+          throw new Error("Mail göndərərkən xəta oldu.");
         }
       },
   },

@@ -21,13 +21,6 @@ type Movie = {
   liked: boolean;
   description?: string;
 };
-
-type CarouselItem = {
-  href: string;
-  title: string;
-  description: string;
-};
-
 function Projects(): JSX.Element {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -51,31 +44,6 @@ function Projects(): JSX.Element {
 
   if (loading) return <Loading />;
   if (error) return <p className="text-red-500">Error: {error.message}</p>;
-
-  const carouselItems: CarouselItem[] = [
-    {
-      href: "https://digitsell.netlify.app",
-      title: "DigitSell Lahiyəsi",
-      description:
-        "Lahiyələr öyrənmə müddətində yazılıb, istər kod, istərsə də dizayn tərəfdə çatışmazlıqlar ola bilər.",
-    },
-    {
-      href: "https://elmuradhasanli.netlify.app/",
-      title: "Elmurad Həsənov",
-      description: "İlk portfolio veb saytım",
-    },
-    {
-      href: "https://surpriseaz.netlify.app",
-      title: "Surprise Lahiyəsi",
-      description: "E-commerce yazılmış lahiyə",
-    },
-    {
-      href: "https://kontaktimaz.netlify.app",
-      title: "Kontaktimaz Lahiyəsi",
-      description:
-        "Müxtəlif funksionallıqlar mövcuddur. Şəxsin əlavə olunması, yenilənməsi, silinməsi, ətraflı baxış və s.",
-    },
-  ];
 
   return (
     <div className="p-4 lg:p-8">

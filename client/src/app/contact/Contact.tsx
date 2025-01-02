@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Card, Input } from "antd";
+import { Card, Input, Modal } from "antd";
 import {
   MailOutlined,
   PhoneOutlined,
@@ -11,27 +11,36 @@ import ContactSchema from "../../schema/contactSchema";
 import { FormValues } from "../../types/GlobalType";
 import { useMutation } from "@apollo/client";
 import { SEND_EMAIL } from "../../graphql/queries";
+import { toast } from "react-toastify";
 
 const ContactPage: React.FC = () => {
+
+  const [isModalOpen, setisModalOpen] = useState(false)
+  const [succesMessage, setSuccesMessage] = useState("")
   const {
     control,
     handleSubmit,
+    reset,
+    setValue,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: yupResolver(ContactSchema),
   });
-  const [sendEmail] = useMutation(SEND_EMAIL);
+  const [sendEmail, {loading}] = useMutation(SEND_EMAIL); 
   const onSubmit = async (data: FormValues) => {
-    console.log("Form Data:", data);
+  
     try {
       const response = await sendEmail({
         variables: data
       });
+      reset();
+      setValue("message", "");
+      setisModalOpen(true)
+      setSuccesMessage(response.data?.sendEmail)
 
-      alert(response.data.sendEmail);
     } catch (error) {
       console.error("Error sending email:", error);
-      alert("Failed to send message. Please try again.");
+      toast.error("Mesaj göndərərkən xəta baş verdi");
     }
   };
 
@@ -87,7 +96,7 @@ const ContactPage: React.FC = () => {
               render={({ field }) => (
                 <textarea
                   {...field}
-                  className={`w-full p-3 border  outline-none resize-none rounded ${
+                  className={`w-full p-3 border  outline-none resize-none rounded min-h-[180px] max-h-[180px] ${
                     errors.message ? "border-red-500" : "border-gray-300"
                   }`}
                   placeholder="Mesajını buraya yaz"
@@ -103,7 +112,7 @@ const ContactPage: React.FC = () => {
             type="submit"
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded shadow-md"
           >
-            Mesaj göndər
+          {loading ?  " Mesaj göndər..." : " Mesaj göndər"} 
           </button>
         </form>
       </Card>
@@ -134,6 +143,15 @@ const ContactPage: React.FC = () => {
         </div>
         <img src="./images/social.svg" alt="Social" />
       </Card>
+      <Modal
+        title="Uğurlu"
+        open={isModalOpen}
+        onOk={() => setisModalOpen(false)}
+        onCancel={() => setisModalOpen(false)}
+        footer={null}
+      >
+        <h3 className="text-green-700">{succesMessage}</h3>
+      </Modal>
     </div>
   );
 };
